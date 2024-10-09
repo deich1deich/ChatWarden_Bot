@@ -80,8 +80,6 @@ namespace PeaceDaBoll.Messages
                 currentVoting = null;
             }
         }
-
-
         public static async Task CancelVoting(string chatId, ITelegramBotClient Bot)
         {
             if (currentVoting == null)
