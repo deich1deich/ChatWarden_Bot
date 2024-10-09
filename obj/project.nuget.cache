@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "gBFKLmg9uP8=",
+  "dgSpecHash": "zeLhhDEC4Js=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Fylax\\source\\repos\\ChatWarden_Bot_\\PeaceDaBoll.csproj",
+  "projectFilePath": "C:\\Users\\dev\\Source\\Repos\\ChatWarden_Bot\\PeaceDaBoll.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Fylax\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
-    "C:\\Users\\Fylax\\.nuget\\packages\\telegram.bot\\19.0.0\\telegram.bot.19.0.0.nupkg.sha512"
+    "C:\\Users\\dev\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\dev\\.nuget\\packages\\telegram.bot\\19.0.0\\telegram.bot.19.0.0.nupkg.sha512"
   ],
   "logs": []
 }
