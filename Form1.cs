@@ -13,8 +13,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using File = System.IO.File;
 using Message = Telegram.Bot.Types.Message;
 using PeaceDaBoll.Messages;
-
-
+using PeaceDaBoll.Profiles.ProfileLogicJSON;
 
 namespace PeaceDaBoll
 {
@@ -29,7 +28,6 @@ namespace PeaceDaBoll
         public Form1()
         {
             InitializeComponent();
-
         }
 
         private async void MainForm_Load(object sender, EventArgs e)
@@ -116,6 +114,14 @@ namespace PeaceDaBoll
                     {
                         await Voting.VotingProcessing(MyChatId, (int)userId, Bot);
                     }
+                    //else  if (messageText.StartsWith("/profile"))
+                    //{
+                    //    UserProfileLogic.GetProfile(update.Message.ReplyToMessage?.From.Username);
+                    //}
+                    else if (messageText.StartsWith("/create"))
+                    {
+                        UserProfileLogic.AddUser(update.Message.From.Username);
+                    }
                 }
             }
         }
@@ -181,15 +187,15 @@ namespace PeaceDaBoll
                         lastReceive = DateTime.Now;
 
                         await Bot.SendTextMessageAsync(
-                   chatId: MyChatId,
-                   text: "Список команд:\n1. /roll - Генерирует случайное число в диапазоне от 0 до указанного числа. " +
-                    "Пример: /roll 100\n2. /voteban - Создаёт голосование за бан пользователя(нельзя создать против администратора)\n" +
-                    "3. /vote - проголосовать за бан, когда голосование открыто\n\n" +
-                    "Для поддержки в развитии проекта: СБЕР 4274 3200 5645 0680. Все полученные средства уйдут на развитие проекта.\n\n" +
-                    "Для админов: \n" +
-                    "/badword [слово] - вписать слово в список запрещённых\n" +
-                    "/votebancancel - отменить голосование за бан",
-                   cancellationToken: cts.Token);
+                        chatId: MyChatId,
+                        text: "Список команд:\n1. /roll - Генерирует случайное число в диапазоне от 0 до указанного числа. " +
+                        "Пример: /roll 100\n2. /voteban - Создаёт голосование за бан пользователя(нельзя создать против администратора)\n" +
+                        "3. /vote - проголосовать за бан, когда голосование открыто\n\n" +
+                        "Для поддержки в развитии проекта: СБЕР 4274 3200 5645 0680. Все полученные средства уйдут на развитие проекта.\n\n" +
+                        "Для админов: \n" +
+                        "/badword [слово] - вписать слово в список запрещённых\n" +
+                        "/votebancancel - отменить голосование за бан",
+                        cancellationToken: cts.Token);
                     }
                 }
                 await Task.Delay(1000);

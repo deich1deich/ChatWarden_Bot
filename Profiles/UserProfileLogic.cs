@@ -3,23 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json;
+using PeaceDaBoll.Profiles.ProfileLogicJSON;
+using File = System.IO.File;
+using Telegram.Bot;
 
 namespace PeaceDaBoll.Profiles
 {
     public class UserProfileLogic
     {
-        private Dictionary<string, UserProfile> profiles = [];
-        public readonly string[] Ranks = ["1", "2", "3", "4"];
+        private static Dictionary<string, UserProfile> profiles = [];
+        public static readonly string[] Ranks = ["1", "2", "3", "4"];
 
-        public UserProfileLogic()
+        public static void AddUser(string name) //Создание профиля пользователя
         {
-
-        }
-
-        public void AddUser(string name, string datenow) //Создание профиля пользователя
-        {
-            UserProfile user = new(name, datenow);
-            profiles.Add(name, user);
+            //if (!profiles.ContainsKey(name))
+            //{
+            //    UserProfile user = new(name);
+            //    profiles.Add(name, user);
+            //}
+            UserProfile user = new(name);
+            JsonLogicProfiles.CreateProfile(user);
         }
         //Добавить предупреждение у пользователя
         public void AddWarningToUser(string name) => profiles[name].quantityUserWarnings += 1;
@@ -34,7 +38,7 @@ namespace PeaceDaBoll.Profiles
         public void AddPointsToUser(string name, int count) => profiles[name].quantityUserPoints += count;
 
         // tyt kakayato hernya
-        public string GetProfile(string name) =>
+        public static string GetProfile(string name) =>
                $"Профиль: {profiles[name].Username.Substring(1)} {profiles[name].SecondUsername}" + Environment.NewLine +
                $"Звание: {Ranks[profiles[name].currentRank]}" + Environment.NewLine +
                $"Кол-во отправленных сообщений: {profiles[name].quantityMessage}" + Environment.NewLine +
