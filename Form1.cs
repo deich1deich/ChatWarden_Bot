@@ -13,10 +13,16 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using File = System.IO.File;
 using Message = Telegram.Bot.Types.Message;
 using PeaceDaBoll.Messages;
-using PeaceDaBoll.Profiles.ProfileLogicJSON;
+using PeaceDaBoll.Profiles.ProfileLogicXYI;
+using Newtonsoft.Json.Linq;
+using static PeaceDaBoll.Profiles.ProfileLogicXYI.CustomLogicProfiles;
 
 namespace PeaceDaBoll
 {
+    // Добавить массив со всеми месседжами, который обнуляется в 00:00:00
+    // Реакции из массива с месседжами
+    //
+
     public partial class Form1 : Form
     {
         private static readonly string Token = "7665926697:AAFU7O64QE-jYfUSbjEG11ur8WkwAVolmbQ"; // Замените на ваш токен
@@ -28,6 +34,8 @@ namespace PeaceDaBoll
         public Form1()
         {
             InitializeComponent();
+            //EditProfile("fylax224luv", ProfileValueType.quantityMessage, "1488");
+            //MessageBox.Show("Test");
         }
 
         private async void MainForm_Load(object sender, EventArgs e)
@@ -44,7 +52,6 @@ namespace PeaceDaBoll
             Update();
             await Task.Delay(1);
         }
-
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) => cts.Cancel(); // Останавливаем получение обновлений при закрытии формы
 
         private async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
@@ -63,7 +70,7 @@ namespace PeaceDaBoll
                     {
                         isReceivingMessages = true;
                         await Bot.SendTextMessageAsync(MyChatId, "Бот включен.");
-                        
+
                     }
                     else if (messageText.StartsWith("/off"))
                     {
@@ -73,7 +80,7 @@ namespace PeaceDaBoll
                 }
                 if (isReceivingMessages == true)
                 {
-                    if(chatMember.Status == ChatMemberStatus.Member)
+                    if (chatMember.Status == ChatMemberStatus.Member)
                     {
                         await BadwordsCheck.MessageCheck(update.Message, MyChatId, Bot);
                     }
@@ -114,14 +121,38 @@ namespace PeaceDaBoll
                     {
                         await Voting.VotingProcessing(MyChatId, (int)userId, Bot);
                     }
-                    //else  if (messageText.StartsWith("/profile"))
-                    //{
-                    //    UserProfileLogic.GetProfile(update.Message.ReplyToMessage?.From.Username);
-                    //}
-                    else if (messageText.StartsWith("/create"))
+                    else if (messageText.StartsWith("/profile"))
                     {
-                        UserProfileLogic.AddUser(update.Message.From.Username);
+                        string profile = "";
+                        switch (ProfileExists(update.Message.From.Username.Replace("@", "")))
+                        {
+                            case true:
+                                profile = UserProfileLogic.ViewProfile(update.Message.ReplyToMessage?.From.Username);
+                                await botClient.SendTextMessageAsync(
+                                    MyChatId,
+                                    profile
+                                    );
+                                return;
+                            case false:
+                                await botClient.SendTextMessageAsync(
+                                    MyChatId,
+                                    "Профиля пользователя не существует! Сейчас будет создан профиль..."
+                                    );
+                                await UserProfileLogic.AddUser(update.Message.ReplyToMessage?.From.Username.Replace("@", ""));
+                                profile = UserProfileLogic.ViewProfile(update.Message.ReplyToMessage?.From.Username);
+                                await botClient.SendTextMessageAsync(
+                                    MyChatId,
+                                    profile
+                                    );
+                                return;
+                        }
+
                     }
+                    //else if (messageText.StartsWith("/create") && !ProfileExists(update.Message.From.Username.Replace("@", "")))
+                    //{
+                    //    CustomLogicProfiles.AddNewProfile(, update.Message.From.Username.Replace("@", ""));
+                    //}
+
                 }
             }
         }

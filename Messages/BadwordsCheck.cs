@@ -11,7 +11,7 @@ namespace PeaceDaBoll.Messages
 {
     public class BadwordsCheck
     {
-        private static string BadWordsFilePath = "badwords.txt"; //Путь к файлу badwords
+        private static string BadWordsFilePath = "C:\\Users\\dev\\source\\repos\\ChatWarden_Bot\\badwords.txt"; //Путь к файлу badwords
         private static char[] separators = [' ', ',', '-', '.']; //Разделители слов (для парсинга badwords)
         public static async Task EnterBadword(Telegram.Bot.Types.Message message, ChatMember chatMember, string MyChatId, TelegramBotClient Bot)
         {

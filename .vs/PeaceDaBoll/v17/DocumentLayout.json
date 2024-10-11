@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\dev\\source\\repos\\ChatWarden_Bot\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{7F5F804D-98E1-4004-8645-BA6D7732EF2C}|PeaceDaBoll.csproj|c:\\users\\dev\\source\\repos\\chatwarden_bot\\profiles\\profilelogicxyi\\customlogicprofiles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F5F804D-98E1-4004-8645-BA6D7732EF2C}|PeaceDaBoll.csproj|solutionrelative:profiles\\profilelogicxyi\\customlogicprofiles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F5F804D-98E1-4004-8645-BA6D7732EF2C}|PeaceDaBoll.csproj|c:\\users\\dev\\source\\repos\\chatwarden_bot\\profiles\\userprofilelogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F5F804D-98E1-4004-8645-BA6D7732EF2C}|PeaceDaBoll.csproj|solutionrelative:profiles\\userprofilelogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{7F5F804D-98E1-4004-8645-BA6D7732EF2C}|PeaceDaBoll.csproj|c:\\users\\dev\\source\\repos\\chatwarden_bot\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7F5F804D-98E1-4004-8645-BA6D7732EF2C}|PeaceDaBoll.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7F5F804D-98E1-4004-8645-BA6D7732EF2C}|PeaceDaBoll.csproj|C:\\Users\\dev\\source\\repos\\ChatWarden_Bot\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{7F5F804D-98E1-4004-8645-BA6D7732EF2C}|PeaceDaBoll.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{7F5F804D-98E1-4004-8645-BA6D7732EF2C}|PeaceDaBoll.csproj|c:\\users\\dev\\source\\repos\\chatwarden_bot\\profiles\\userprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F5F804D-98E1-4004-8645-BA6D7732EF2C}|PeaceDaBoll.csproj|solutionrelative:profiles\\userprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,21 +26,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\dev\\source\\repos\\ChatWarden_Bot\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
               "ToolTip": "C:\\Users\\dev\\source\\repos\\ChatWarden_Bot\\Form1.cs",
               "RelativeToolTip": "Form1.cs",
-              "ViewState": "AgIAAGMAAAAAAAAAAAAnwHAAAAA9AAAAAAAAAA==",
+              "ViewState": "AgIAAHYAAAAAAAAAAAAAAIUAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-09T10:51:43.243Z",
               "EditorCaption": ""
@@ -40,13 +44,40 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435]",
-              "DocumentMoniker": "C:\\Users\\dev\\source\\repos\\ChatWarden_Bot\\Form1.cs",
-              "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "C:\\Users\\dev\\source\\repos\\ChatWarden_Bot\\Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435]",
-              "RelativeToolTip": "Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435]",
+              "Title": "UserProfileLogic.cs",
+              "DocumentMoniker": "C:\\Users\\dev\\source\\repos\\ChatWarden_Bot\\Profiles\\UserProfileLogic.cs",
+              "RelativeDocumentMoniker": "Profiles\\UserProfileLogic.cs",
+              "ToolTip": "C:\\Users\\dev\\source\\repos\\ChatWarden_Bot\\Profiles\\UserProfileLogic.cs",
+              "RelativeToolTip": "Profiles\\UserProfileLogic.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAACIAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-09T10:51:03.983Z"
+              "WhenOpened": "2024-10-11T12:16:47.244Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CustomLogicProfiles.cs",
+              "DocumentMoniker": "C:\\Users\\dev\\source\\repos\\ChatWarden_Bot\\Profiles\\ProfileLogicXYI\\CustomLogicProfiles.cs",
+              "RelativeDocumentMoniker": "Profiles\\ProfileLogicXYI\\CustomLogicProfiles.cs",
+              "ToolTip": "C:\\Users\\dev\\source\\repos\\ChatWarden_Bot\\Profiles\\ProfileLogicXYI\\CustomLogicProfiles.cs",
+              "RelativeToolTip": "Profiles\\ProfileLogicXYI\\CustomLogicProfiles.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAYwCwAAABpAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-11T10:17:16.307Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UserProfile.cs",
+              "DocumentMoniker": "C:\\Users\\dev\\source\\repos\\ChatWarden_Bot\\Profiles\\UserProfile.cs",
+              "RelativeDocumentMoniker": "Profiles\\UserProfile.cs",
+              "ToolTip": "C:\\Users\\dev\\source\\repos\\ChatWarden_Bot\\Profiles\\UserProfile.cs",
+              "RelativeToolTip": "Profiles\\UserProfile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-11T10:50:16.3Z"
             }
           ]
         }

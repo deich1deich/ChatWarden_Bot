@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace PeaceDaBoll.Profiles
 {
-    public class UserProfile(string UserName)
+    public class UserProfile()
     {
-        public string Username { get; set; } = UserName ?? "";
-        public string SecondUsername { get; set; } = "";
-        public int currentRank { get; set; } = 0;
-        public int quantityMessage { get; set; } = 0;
-        public DateTime FirstActivity { get; set; } = DateTime.Now;
-        public DateTime LastActivity { get; set; } = default(DateTime);
-        public int quantityUserWarnings { get; set; } = 0;
-        public int quantityUserPoints { get; set; } = 0;
+        public string Username = "";
+        public string CustomName = "";
+        public int currentRank = 0;
+        public int quantityMessage = 0;
+        public string FirstActivity = DateTime.Now.ToString();
+        public string LastActivity = default(DateTime).ToString();
+        public int quantityUserWarnings = 0;
+        public int quantityUserPoints = 0;
     }
 }

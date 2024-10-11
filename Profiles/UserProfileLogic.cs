@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
-using PeaceDaBoll.Profiles.ProfileLogicJSON;
+using PeaceDaBoll.Profiles.ProfileLogicXYI;
 using File = System.IO.File;
 using Telegram.Bot;
 
@@ -12,40 +12,40 @@ namespace PeaceDaBoll.Profiles
 {
     public class UserProfileLogic
     {
-        private static Dictionary<string, UserProfile> profiles = [];
+        //private static Dictionary<string, UserProfile> profiles = [];
         public static readonly string[] Ranks = ["1", "2", "3", "4"];
 
-        public static void AddUser(string name) //Создание профиля пользователя
+        public static async Task AddUser(string name) //Создание профиля пользователя
         {
-            //if (!profiles.ContainsKey(name))
-            //{
-            //    UserProfile user = new(name);
-            //    profiles.Add(name, user);
-            //}
-            UserProfile user = new(name);
-            JsonLogicProfiles.CreateProfile(user);
+            UserProfile user = new();
+            CustomLogicProfiles.AddNewProfile(user, name);
         }
         //Добавить предупреждение у пользователя
-        public void AddWarningToUser(string name) => profiles[name].quantityUserWarnings += 1;
+        public async Task AddWarningToUser(string name) => CustomLogicProfiles.GetProfile(name).quantityUserWarnings += 1;
 
         //Уменьшить предупредения у пользователя
-        public void ReduceWarningToUser(string name, int count) => profiles[name].quantityUserWarnings = profiles[name].quantityUserWarnings <= 0 ? 0 : profiles[name].quantityUserWarnings - count;
+        public async Task ReduceWarningToUser(string name, int count) => CustomLogicProfiles.GetProfile(name).quantityUserWarnings = CustomLogicProfiles.GetProfile(name).quantityUserWarnings <= 0 ? 0 : CustomLogicProfiles.GetProfile(name).quantityUserWarnings - count;
 
         //Убрать предупреждения у пользователя
-        public void RemoveWarningToUser(string name) => profiles[name].quantityUserWarnings = 0;
+        public async Task RemoveWarningToUser(string name) => CustomLogicProfiles.GetProfile(name).quantityUserWarnings = 0;
 
         //Добавить очки пользователю
-        public void AddPointsToUser(string name, int count) => profiles[name].quantityUserPoints += count;
+        public async Task AddPointsToUser(string name, int count) => CustomLogicProfiles.GetProfile(name).quantityUserPoints += count;
 
         // tyt kakayato hernya
-        public static string GetProfile(string name) =>
-               $"Профиль: {profiles[name].Username.Substring(1)} {profiles[name].SecondUsername}" + Environment.NewLine +
-               $"Звание: {Ranks[profiles[name].currentRank]}" + Environment.NewLine +
-               $"Кол-во отправленных сообщений: {profiles[name].quantityMessage}" + Environment.NewLine +
-               $"Кол-во полученых предупреждений: {profiles[name].quantityUserWarnings}" + Environment.NewLine +
-               $"Последняя активность: {profiles[name].LastActivity}" + Environment.NewLine +
-               $"Первая активность: {profiles[name].FirstActivity}" + Environment.NewLine +
-               $"Баллы на счету: {profiles[name].quantityUserPoints}" + Environment.NewLine +
-               $"" + Environment.NewLine;
+        public static string ViewProfile(string name)
+        {
+            UserProfile user = CustomLogicProfiles.GetProfile(name);
+            string text = $"Профиль: {user.Username.Substring(1)}{user.CustomName}" +
+            $"Звание: {user.currentRank}" +
+            $"Кол-во отправленных сообщений: {user.quantityMessage}" +
+            $"Кол-во полученых предупреждений: {user.quantityUserWarnings}" +
+            $"Последняя активность: {user.LastActivity}" +
+            $"Первая активность: {user.FirstActivity}" +
+            $"Баллы на счету: {user.quantityUserPoints}" /*+*/
+            /*$""*/;
+            MessageBox.Show("Сделано!");
+            return text;
+        }
     }
 }
