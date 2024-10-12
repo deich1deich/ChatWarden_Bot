@@ -89,7 +89,8 @@ namespace PeaceDaBoll
                     {
                         await Bot.SendTextMessageAsync(
                         chatId: MyChatId,
-                        text: "Список команд:\n1. /roll - Генерирует случайное число в диапазоне от 0 до указанного числа. " +
+                        text:
+                        "Список команд:\n1. /roll - Генерирует случайное число в диапазоне от 0 до указанного числа. " +
                         "Пример: /roll 100\n2. /voteban - Создаёт голосование за бан пользователя(нельзя создать против администратора)\n" +
                         "3. /vote - проголосовать за бан, когда голосование открыто\n\n" +
                         "Для поддержки в развитии проекта: СБЕР 4274 3200 5645 0680. Все полученные средства уйдут на развитие проекта.\n\n" +
@@ -124,7 +125,7 @@ namespace PeaceDaBoll
                     else if (messageText.StartsWith("/profile"))
                     {
                         string profile = "";
-                        switch (ProfileExists(update.Message.From.Username.Replace("@", "")))
+                        switch (ProfileExists(update.Message.ReplyToMessage?.From.Username))
                         {
                             case true:
                                 profile = UserProfileLogic.ViewProfile(update.Message.ReplyToMessage?.From.Username);
@@ -138,7 +139,7 @@ namespace PeaceDaBoll
                                     MyChatId,
                                     "Профиля пользователя не существует! Сейчас будет создан профиль..."
                                     );
-                                await UserProfileLogic.AddUser(update.Message.ReplyToMessage?.From.Username.Replace("@", ""));
+                                await UserProfileLogic.AddUser(update.Message.ReplyToMessage?.From.Username);
                                 profile = UserProfileLogic.ViewProfile(update.Message.ReplyToMessage?.From.Username);
                                 await botClient.SendTextMessageAsync(
                                     MyChatId,
@@ -152,7 +153,6 @@ namespace PeaceDaBoll
                     //{
                     //    CustomLogicProfiles.AddNewProfile(, update.Message.From.Username.Replace("@", ""));
                     //}
-
                 }
             }
         }

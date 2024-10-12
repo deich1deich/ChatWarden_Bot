@@ -13,7 +13,7 @@ namespace PeaceDaBoll.Profiles.ProfileLogicXYI
             CustomName,
             currentRank,
             quantityMessage,
-            FirstActivity,
+            //FirstActivity,
             LastActivity,
             quantityUserWarnings,
             quantityUserPoints
@@ -23,7 +23,8 @@ namespace PeaceDaBoll.Profiles.ProfileLogicXYI
         {
             if (!ProfileExists(name))
             {
-                File.AppendAllText(path,
+                File.AppendAllText(
+                    path,
                     $"@\"{name}\"" + Environment.NewLine +
                     $"{{" + Environment.NewLine +
                     $"{name} CustomName: <{user.CustomName}>" + Environment.NewLine +
@@ -44,21 +45,21 @@ namespace PeaceDaBoll.Profiles.ProfileLogicXYI
                 Username = Username,
                 CustomName = Regex.Match(text, @$"(?<={Username} CustomName: <)[A-Za-z0-9]+(?=>)").Value,
                 currentRank = Convert.ToInt32(Regex.Match(text, @$"(?<={Username} currentRank: <)[0-9]+(?=>)").Value),
-                quantityMessage = Convert.ToInt32(Regex.Match(text, @$"(?<={Username} quantityMessage: <)[0-9]+(?=>)").Value), // 10.10.2024 16:33:33
-                FirstActivity = Regex.Match(text, @$"(?<={Username} FirstActivity: <)[0-9]+.[0-9]+.[0-9]{4,4} [0-9]+:[0-9]+:[0-9]+(?=>)").Value,
-                LastActivity = Regex.Match(text, @$"(?<={Username} LastActivity: <)[0-9]+.[0-9]+.[0-9]{4,4} [0-9]+:[0-9]+:[0-9]+(?=>)").Value,
+                quantityMessage = Convert.ToInt32(Regex.Match(text, @$"(?<={Username} quantityMessage: <)[0-9]+(?=>)").Value),
+                FirstActivity = Regex.Match(text, @$"(?<={Username} FirstActivity: <)[0-9]+\.[0-9]+\.[0-9]{{4}} [0-9]+:[0-9]+:[0-9]+(?=>)").Value, // 10.10.2024 16:33:33
+                LastActivity = Regex.Match(text, @$"(?<={Username} LastActivity: <)[0-9]+\.[0-9]+\.[0-9]{{4}} [0-9]+:[0-9]+:[0-9]+(?=>)").Value, // 10.10.2024 16:33:33
                 quantityUserWarnings = Convert.ToInt32(Regex.Match(text, @$"(?<={Username} quantityUserWarnings: <)[0-9]+(?=>)").Value),
                 quantityUserPoints = Convert.ToInt32(Regex.Match(text, @$"(?<={Username} quantityUserPoints: <)[0-9]+(?=>)").Value)
             };
-            return new UserProfile();
+            return profile;
         }
-
         public static Dictionary<string, UserProfile> GetAllProfiles()
         {
             Profiles = new Dictionary<string, UserProfile>();
             string text = File.ReadAllText(path);
-            foreach (string _Username in Regex.Matches(text, @"(?<=@"")[A-Za-z0-9]+(?="")"))
+            foreach (Match item in Regex.Matches(text, @"(?<=@"")[A-Za-z0-9]+(?="")"))
             {
+                string _Username = item.Value;
                 if (!Profiles.ContainsKey(_Username))
                 {
                     Profiles.Add(_Username, GetProfile(_Username));
@@ -66,7 +67,6 @@ namespace PeaceDaBoll.Profiles.ProfileLogicXYI
             }
             return Profiles;
         }
-
         public static void EditProfile(string Username, ProfileValueType type, string value)
         {
             string text = File.ReadAllText(path);
@@ -85,10 +85,10 @@ namespace PeaceDaBoll.Profiles.ProfileLogicXYI
                     NewValue = $"{Username} quantityMessage: <{value}>";
                     text = text.Replace($"{Username} quantityMessage: <{GetProfile(Username).quantityMessage}>", NewValue);
                     break;
-                case ProfileValueType.FirstActivity:
-                    NewValue = $"{Username} FirstActivity: <{value}>";
-                    text = text.Replace($"{Username} FirstActivity: <{GetProfile(Username).FirstActivity}>", NewValue);
-                    break;
+                //case ProfileValueType.FirstActivity:
+                //    NewValue = $"{Username} FirstActivity: <{value}>";
+                //    text = text.Replace($"{Username} FirstActivity: <{GetProfile(Username).FirstActivity}>", NewValue);
+                //    break;
                 case ProfileValueType.LastActivity:
                     NewValue = $"{Username} LastActivity: <{value}>";
                     text = text.Replace($"{Username} LastActivity: <{GetProfile(Username).LastActivity}>", NewValue);
@@ -104,7 +104,6 @@ namespace PeaceDaBoll.Profiles.ProfileLogicXYI
             }
             File.WriteAllText(path, text);
         }
-
         public static bool ProfileExists(string Username) => GetAllProfiles().ContainsKey(Username);
     }
 }

@@ -13,7 +13,7 @@ namespace PeaceDaBoll.Profiles
         public int currentRank = 0;
         public int quantityMessage = 0;
         public string FirstActivity = DateTime.Now.ToString();
-        public string LastActivity = default(DateTime).ToString();
+        public string LastActivity = DateTime.Now.ToString();
         public int quantityUserWarnings = 0;
         public int quantityUserPoints = 0;
     }

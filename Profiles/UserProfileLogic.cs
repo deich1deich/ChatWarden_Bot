@@ -13,7 +13,7 @@ namespace PeaceDaBoll.Profiles
     public class UserProfileLogic
     {
         //private static Dictionary<string, UserProfile> profiles = [];
-        public static readonly string[] Ranks = ["1", "2", "3", "4"];
+        public static readonly string[] Ranks = ["slave", "average boy", "master", "boss this gym"];
 
         public static async Task AddUser(string name) //Создание профиля пользователя
         {
@@ -21,9 +21,9 @@ namespace PeaceDaBoll.Profiles
             CustomLogicProfiles.AddNewProfile(user, name);
         }
         //Добавить предупреждение у пользователя
-        public async Task AddWarningToUser(string name) => CustomLogicProfiles.GetProfile(name).quantityUserWarnings += 1;
+        public async Task AddWarningToUser(string name) => CustomLogicProfiles.EditProfile(name, CustomLogicProfiles.ProfileValueType.quantityUserWarnings, "1");
 
-        //Уменьшить предупредения у пользователя
+        //Уменьшить предупреждения у пользователя
         public async Task ReduceWarningToUser(string name, int count) => CustomLogicProfiles.GetProfile(name).quantityUserWarnings = CustomLogicProfiles.GetProfile(name).quantityUserWarnings <= 0 ? 0 : CustomLogicProfiles.GetProfile(name).quantityUserWarnings - count;
 
         //Убрать предупреждения у пользователя
@@ -32,19 +32,19 @@ namespace PeaceDaBoll.Profiles
         //Добавить очки пользователю
         public async Task AddPointsToUser(string name, int count) => CustomLogicProfiles.GetProfile(name).quantityUserPoints += count;
 
-        // tyt kakayato hernya
         public static string ViewProfile(string name)
         {
             UserProfile user = CustomLogicProfiles.GetProfile(name);
-            string text = $"Профиль: {user.Username.Substring(1)}{user.CustomName}" +
-            $"Звание: {user.currentRank}" +
-            $"Кол-во отправленных сообщений: {user.quantityMessage}" +
-            $"Кол-во полученых предупреждений: {user.quantityUserWarnings}" +
-            $"Последняя активность: {user.LastActivity}" +
-            $"Первая активность: {user.FirstActivity}" +
+            string text = 
+            $"Профиль: {user.Username} {user.CustomName}" + Environment.NewLine +
+            $"Звание: {Ranks[user.currentRank]}" + Environment.NewLine +
+            $"Кол-во отправленных сообщений: {user.quantityMessage}" + Environment.NewLine +
+            $"Кол-во полученных предупреждений: {user.quantityUserWarnings}" + Environment.NewLine +
+            $"Последняя активность: {user.LastActivity}" + Environment.NewLine +
+            $"Первая активность: {user.FirstActivity}" + Environment.NewLine +
             $"Баллы на счету: {user.quantityUserPoints}" /*+*/
             /*$""*/;
-            MessageBox.Show("Сделано!");
+            //MessageBox.Show("Сделано!");
             return text;
         }
     }
