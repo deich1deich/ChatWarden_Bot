@@ -13,7 +13,7 @@ namespace PeaceDaBoll.Profiles
 {
     public class UserProfileLogic
     {
-        public static readonly string[] Ranks = ["slave", "average boy", "master", "boss this gym"]; //Ранги
+        public static readonly string[] Ranks = ["Рядовой", "Ефрейтор", "Сержант", "Старшина", "Прапорщик", "Лейтенант", "Капитан", "Майор", "Полковник", "Генерал майор", "Генерал лейтенант", "Генерал полковник", "Генерал армии"]; //Ранги
         public enum ProfileValueType
         {
             CustomName,
@@ -23,36 +23,36 @@ namespace PeaceDaBoll.Profiles
             quantityUserWarnings,
             quantityUserPoints
         }
-        public static void AddUser(string name) //Создание профиля пользователя
+        public static async Task AddUser(string name) //Создание профиля пользователя
         {
             UserProfile user = new();
             CustomLogicProfiles.AddNewProfile(user, name);
         }
 
-        public static void AddMessageCount(string name) => CustomLogicProfiles.EditProfile(name, ProfileValueType.quantityMessage, Convert.ToString(CustomLogicProfiles.GetProfile(name).quantityMessage + 1));
+        public static async Task AddMessageCount(string name) => CustomLogicProfiles.EditProfile(name, ProfileValueType.quantityMessage, Convert.ToString(CustomLogicProfiles.GetProfile(name).quantityMessage + 1));
         //Добавить предупреждение у пользователя
-        public static void AddWarningToUser(string name) => CustomLogicProfiles.EditProfile(name, ProfileValueType.quantityUserWarnings, Convert.ToString(Convert.ToInt32(CustomLogicProfiles.GetProfile(name).quantityUserWarnings) + 1));
+        public static async Task AddWarningToUser(string name) => CustomLogicProfiles.EditProfile(name, ProfileValueType.quantityUserWarnings, Convert.ToString(Convert.ToInt32(CustomLogicProfiles.GetProfile(name).quantityUserWarnings) + 1));
         
         //Уменьшить предупреждения у пользователя
-        public static void ReduceWarningToUser(string name) => CustomLogicProfiles.EditProfile(name, ProfileValueType.quantityUserWarnings, Convert.ToString(Convert.ToInt32(CustomLogicProfiles.GetProfile(name).quantityUserWarnings) - 1));
+        public static async Task ReduceWarningToUser(string name) => CustomLogicProfiles.EditProfile(name, ProfileValueType.quantityUserWarnings, Convert.ToString(Convert.ToInt32(CustomLogicProfiles.GetProfile(name).quantityUserWarnings) - 1));
         
         //Убрать предупреждения у пользователя
-        public static void RemoveWarningToUser(string name) => CustomLogicProfiles.EditProfile(name, ProfileValueType.quantityUserWarnings, "0");
+        public static async Task RemoveWarningToUser(string name) => CustomLogicProfiles.EditProfile(name, ProfileValueType.quantityUserWarnings, "0");
 
         //Изменения очков пользователя
-        public static void ChangePointsUser(string name, int value) => CustomLogicProfiles.EditProfile(name, ProfileValueType.quantityUserPoints, Convert.ToString(CustomLogicProfiles.GetProfile(name).quantityUserPoints + value));
+        public static async Task ChangePointsUser(string name, int value) => CustomLogicProfiles.EditProfile(name, ProfileValueType.quantityUserPoints, Convert.ToString(CustomLogicProfiles.GetProfile(name).quantityUserPoints + value));
         
         //Добавление/изменение пользователю второго ника
-        public static void EditCustomUsername(string name, string value) => CustomLogicProfiles.EditProfile(name, ProfileValueType.CustomName, value);
+        public static async Task EditCustomUsername(string name, string value) => CustomLogicProfiles.EditProfile(name, ProfileValueType.CustomName, value);
         
         //Присвоение ранга
-        public static void GiveRank(string name, int value) => CustomLogicProfiles.EditProfile(name, ProfileValueType.currentRank, value.ToString());
+        public static async Task GiveRank(string name, int value) => CustomLogicProfiles.EditProfile(name, ProfileValueType.currentRank, value.ToString());
 
         //Присвоение последней активности пользователя
-        public static void SetLastDate(string name, DateTime time) => CustomLogicProfiles.EditProfile(name, ProfileValueType.LastActivity, time.ToString());
+        public static async Task SetLastDate(string name, DateTime time) => CustomLogicProfiles.EditProfile(name, ProfileValueType.LastActivity, time.ToString());
         
         //Получение данных профиля пользователя и их компоновки в нужно виде для вывода сообщения в чате
-        public static string ViewProfile(string name)
+        public static async Task <string> ViewProfile(string name)
         {
             UserProfile user = CustomLogicProfiles.GetProfile(name);
             string text = 
@@ -62,8 +62,7 @@ namespace PeaceDaBoll.Profiles
             $"Кол-во полученных предупреждений: {user.quantityUserWarnings}/5" + Environment.NewLine +
             $"Последняя активность: {user.LastActivity}" + Environment.NewLine +
             $"Первая активность: {user.FirstActivity}" + Environment.NewLine +
-            $"Баллы на счету: {user.quantityUserPoints}" + Environment.NewLine +
-            $"Реакции: ";
+            $"Баллы на счету: {user.quantityUserPoints}";
             return text;
         }
     }

@@ -8,12 +8,15 @@ using PeaceDaBoll.Messages;
 using static PeaceDaBoll.Profiles.ProfileLogicXYI.CustomLogicProfiles;
 using System.Windows.Forms;
 using System.Drawing;
+using Microsoft.VisualBasic.ApplicationServices;
 
 namespace PeaceDaBoll
 {
     // �������� ������ �� ����� ����������, ������� ���������� � 00:00:00
     // ������� �� ������� � ����������
-    //
+    // Напоминание
+    // сделать логику присвоения нового ранга
+    // Сделать логирование ошибок и сообщений и т.д.
 
     public partial class Form1 : Form
     {
@@ -41,6 +44,14 @@ namespace PeaceDaBoll
             Update();
             await Task.Delay(1);
         }
+
+        public static async Task<bool> IsUserAdmin(ITelegramBotClient botClien, string chatId, long user)
+        {
+            var chatMembers = await botClien.GetChatMemberAsync(chatId, user);
+
+            return chatMembers.Status == ChatMemberStatus.Administrator || chatMembers.Status == ChatMemberStatus.Creator;
+        }
+
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) => cts.Cancel();
 
         private async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
@@ -54,7 +65,7 @@ namespace PeaceDaBoll
                     var user = update.Message.From;
                     string messageText = update.Message.Text;
                     var chatMember = await Bot.GetChatMemberAsync(chatId: MyChatId, userId);
-                    if (chatMember.Status == ChatMemberStatus.Administrator || chatMember.Status == ChatMemberStatus.Creator || user.Username.Replace("@", "") == "BlastorChan")
+                    if (chatMember.Status == ChatMemberStatus.Administrator || chatMember.Status == ChatMemberStatus.Creator || user.Username.Replace("@", "") == "BlastorChan" || user.Username.Replace("@", "") == "IamDeich")
                     {
                         if (messageText.StartsWith("/on"))
                         {
@@ -67,20 +78,61 @@ namespace PeaceDaBoll
                             isReceivingMessages = false;
                             await Bot.SendTextMessageAsync(MyChatId, "Бот выключен.");
                         }
-
-                        if (messageText.StartsWith("/point"))
+                        
+                        if (messageText.StartsWith("/point")) //Работа с очками пользователя
                         {
                             string userReply = update.Message.ReplyToMessage?.From.Username.Replace("@", "");
                             int value = Convert.ToInt32(Regex.Match(messageText, "(?<=/point )[-]?[0-9]+").Value);
                             if (value != 0) 
-                            { 
-                                UserProfileLogic.ChangePointsUser(userReply, value);
+                            {
+                                await UserProfileLogic.ChangePointsUser(userReply, value);
+                                await botClient.SendTextMessageAsync(MyChatId, $"{userReply} добавлено {value} очков");
+                            }
+                        }
+
+                        if (update.Message.ReplyToMessage != null && messageText.StartsWith('/')) //Работа с выдачей предупреждений пользователю
+                        {
+                            string userReply = update.Message.ReplyToMessage?.From.Username.Replace("@", "");
+                            long userReplyId = update.Message.ReplyToMessage.From.Id;
+                            string messageReply = update.Message.ReplyToMessage.Text;
+                            if (!await IsUserAdmin(botClient, MyChatId, userReplyId))
+                            {
+                                if (messageText.StartsWith("/warnP"))
+                                {
+                                    await UserProfileLogic.AddWarningToUser(userReply);
+                                    await botClient.SendTextMessageAsync(MyChatId, $"Предупреждение для {userReply}");
+                                }
+                                else if (messageText.StartsWith("/warnM"))
+                                {
+                                    //string userReply = update.Message.ReplyToMessage?.From.Username.Replace("@", "");
+                                    await UserProfileLogic.ReduceWarningToUser(userReply);
+                                    await botClient.SendTextMessageAsync(MyChatId, $"Предупреждение для {userReply} снято");
+
+                                }
+                                else if (messageText.StartsWith("/warnremove"))
+                                {
+                                    //string userReply = update.Message.ReplyToMessage?.From.Username.Replace("@", "");
+                                    await UserProfileLogic.RemoveWarningToUser(userReply);
+                                    await botClient.SendTextMessageAsync(MyChatId, $"Предупреждения {userReply} сняты");
+                                }
+                            }
+                            else
+                            {
+                                await botClient.SendTextMessageAsync(MyChatId, "Применять данные команды по отношению к админам нельзя");
+                            }
+                            
+                            if (messageText.StartsWith("/editname"))
+                            {
+                                string newName = Regex.Match(messageText, @"(?<=/editname )[A-Za-zА-Яа-я0-9]+").Value;
+                                await UserProfileLogic.EditCustomUsername(update.Message.ReplyToMessage?.From.Username.Replace("@", ""), newName);
+                                await botClient.SendTextMessageAsync(MyChatId, $"Второй ник пользователя изменен на {newName}");
                             }
                         }
                     }
+
                     if (isReceivingMessages == true)
                     {
-                        if (chatMember.Status == ChatMemberStatus.Member)
+                        if (chatMember.Status == ChatMemberStatus.Member)  
                         {
                             await BadwordsCheck.MessageCheck(update.Message, MyChatId, Bot);
                         }
@@ -89,18 +141,18 @@ namespace PeaceDaBoll
                             string name = user.Username.Replace("@", "");
                             if (ProfileExists(name)) //Обработка последней активности пользователя исходя из отправленных сообщений
                             {
-                                UserProfileLogic.SetLastDate(name, DateTime.Now); //Изменение даты последней активности
-                                UserProfileLogic.AddMessageCount(name); //Обновление кол-ва сообщений отправленных пользователем ++
+                                await UserProfileLogic.SetLastDate(name, DateTime.Now); //Изменение даты последней активности
+                                await UserProfileLogic.AddMessageCount(name); //Обновление кол-ва сообщений отправленных пользователем ++
                             }
                             else
                             {
-                                UserProfileLogic.AddUser(name);
+                                await UserProfileLogic.AddUser(name);
                                 await botClient.SendTextMessageAsync(
                                     MyChatId,
                                     $"Профиль нового пользователя создан!" + Environment.NewLine +
                                     $"{UserProfileLogic.ViewProfile(name)}"
                                     );
-                                UserProfileLogic.AddMessageCount(name);
+                                await UserProfileLogic.AddMessageCount(name);
                             }
                         }
                         if (messageText.StartsWith("/help"))
@@ -146,7 +198,7 @@ namespace PeaceDaBoll
                             string username = Regex.Match(messageText, @"(?<=/profile )[A-Za-z0-9]+").Value;
                             if (ProfileExists(username))
                             {
-                                profile = UserProfileLogic.ViewProfile(username);
+                                profile = await UserProfileLogic.ViewProfile(username);
                                 await botClient.SendTextMessageAsync(
                                     MyChatId,
                                     profile
@@ -154,7 +206,7 @@ namespace PeaceDaBoll
                             }
                             else if (messageText == "/profile")
                             {
-                                profile = UserProfileLogic.ViewProfile(messageText.Replace("@", ""));
+                                profile = await UserProfileLogic.ViewProfile(user.Username.Replace("@", ""));
                                 await botClient.SendTextMessageAsync(
                                     MyChatId,
                                     profile
@@ -168,56 +220,19 @@ namespace PeaceDaBoll
                                     );
                             }
                         }
-                        //else if (messageText.StartsWith("/create"))
-                        //{
-                        //    //string username = Regex.Match(update.Message.Text, @"(?<=/profile )[A-Za-z0-9]+").Value;
-                        //    string username = update.Message.From.Username.Replace("@", "");
-                        //    if (!ProfileExists(username))
-                        //    {
-                        //        UserProfileLogic.AddUser(username);
-                        //        await botClient.SendTextMessageAsync(
-                        //            MyChatId,
-                        //            $"Профиль {username} создан!"
-                        //            );
-                        //    }
-                        //}
-                        //else if (messageText.StartsWith("/create") && !ProfileExists(update.Message.From.Username.Replace("@", "")))
-                        //{
-                        //    CustomLogicProfiles.AddNewProfile(, update.Message.From.Username.Replace("@", ""));
-                        //}
+                        
                     }
                 }
             }
             catch (Exception ex)
             {
-                Chat_TextBox.Text += $"Ошибка: {ex}" + Environment.NewLine;
+                Invoke((MethodInvoker)(() => Chat_TextBox.Text += $"[{DateTime.Now:G}] Ошибка: {ex}"));
+                //Chat_TextBox.Text += $"Ошибка: {ex}" + Environment.NewLine;
             }
         }
 
-        //else if(update.Type == UpdateType.ChatMember)
-        //{
-        //    MessageBox.Show("update with chatMember");
-        //    if(update.ChatMember.NewChatMember.Status == ChatMemberStatus.Member)
-        //    {
-        //        MessageBox.Show("update with newchatMember");
-        //        await Bot.SendTextMessageAsync(
-        //            chatId: MyChatId,
-        //            text: $"{update.ChatMember.NewChatMember.User.Username}, ����� ����������!",
-        //            cancellationToken: cancellationToken);
-        //    }
-        //    else if(update.ChatMember.OldChatMember.Status == ChatMemberStatus.Left)
-        //    {
-        //        MessageBox.Show("update with leftChatMember");
-        //        await Bot.SendTextMessageAsync(
-        //            chatId: MyChatId,
-        //            text: "� �� �����������.",
-        //            cancellationToken: cancellationToken);
-        //    } 
-        //}
-
         private Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
         {
-            // ��������� ������
             MessageBox.Show($"Error: {exception.Message}\nStackTrace: {exception.StackTrace}\nSource: {exception.Source}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return Task.CompletedTask;
         }
@@ -272,6 +287,44 @@ namespace PeaceDaBoll
         }
     }
 }
+//else if (messageText.StartsWith("/create"))
+//{
+//    //string username = Regex.Match(update.Message.Text, @"(?<=/profile )[A-Za-z0-9]+").Value;
+//    string username = update.Message.From.Username.Replace("@", "");
+//    if (!ProfileExists(username))
+//    {
+//        UserProfileLogic.AddUser(username);
+//        await botClient.SendTextMessageAsync(
+//            MyChatId,
+//            $"Профиль {username} создан!"
+//            );
+//    }
+//}
+
+//else if (messageText.StartsWith("/create") && !ProfileExists(update.Message.From.Username.Replace("@", "")))
+//{
+//    CustomLogicProfiles.AddNewProfile(, update.Message.From.Username.Replace("@", ""));
+//}
+//else if(update.Type == UpdateType.ChatMember)
+//{
+//    MessageBox.Show("update with chatMember");
+//    if(update.ChatMember.NewChatMember.Status == ChatMemberStatus.Member)
+//    {
+//        MessageBox.Show("update with newchatMember");
+//        await Bot.SendTextMessageAsync(
+//            chatId: MyChatId,
+//            text: $"{update.ChatMember.NewChatMember.User.Username}, ����� ����������!",
+//            cancellationToken: cancellationToken);
+//    }
+//    else if(update.ChatMember.OldChatMember.Status == ChatMemberStatus.Left)
+//    {
+//        MessageBox.Show("update with leftChatMember");
+//        await Bot.SendTextMessageAsync(
+//            chatId: MyChatId,
+//            text: "� �� �����������.",
+//            cancellationToken: cancellationToken);
+//    } 
+//}
 
 //switch (ProfileExists(update.Message.ReplyToMessage?.From.Username))
 //{
@@ -295,6 +348,7 @@ namespace PeaceDaBoll
 //            );
 //        return;
 //}
+
 //if (messageText.StartsWith("/addpoint"))
 //{
 //    string userReplay = update.Message.ReplyToMessage?.From.Username.Replace("@", "");
