@@ -7,6 +7,7 @@ using System.Text.Json;
 using PeaceDaBoll.Profiles.ProfileLogicXYI;
 using File = System.IO.File;
 using Telegram.Bot;
+using static PeaceDaBoll.Profiles.UserProfileLogic;
 
 namespace PeaceDaBoll.Profiles
 {
@@ -37,12 +38,9 @@ namespace PeaceDaBoll.Profiles
         
         //Убрать предупреждения у пользователя
         public static void RemoveWarningToUser(string name) => CustomLogicProfiles.EditProfile(name, ProfileValueType.quantityUserWarnings, "0");
-        
-        //Добавить очки пользователю
-        public static void AddPointsToUser(string name, int value) => CustomLogicProfiles.EditProfile(name, ProfileValueType.quantityUserPoints, Convert.ToString(CustomLogicProfiles.GetProfile(name).quantityUserPoints + value));
-        
-        //Отнять очки пользователя
-        public static void TakePointsFromUser(string name, int value) => CustomLogicProfiles.EditProfile(name, ProfileValueType.quantityUserPoints, Convert.ToString(CustomLogicProfiles.GetProfile(name).quantityUserPoints - value));
+
+        //Изменения очков пользователя
+        public static void ChangePointsUser(string name, int value) => CustomLogicProfiles.EditProfile(name, ProfileValueType.quantityUserPoints, Convert.ToString(CustomLogicProfiles.GetProfile(name).quantityUserPoints + value));
         
         //Добавление/изменение пользователю второго ника
         public static void EditCustomUsername(string name, string value) => CustomLogicProfiles.EditProfile(name, ProfileValueType.CustomName, value);
@@ -72,3 +70,7 @@ namespace PeaceDaBoll.Profiles
 }
 
 //Это ебучий ужас, а не код
+//Добавить очки пользователю
+//public static void AddPointsToUser(string name, int value) => CustomLogicProfiles.EditProfile(name, ProfileValueType.quantityUserPoints, Convert.ToString(CustomLogicProfiles.GetProfile(name).quantityUserPoints + value
+////Отнять очки пользователя
+//public static void TakePointsFromUser(string name, int value) => CustomLogicProfiles.EditProfile(name, ProfileValueType.quantityUserPoints, Convert.ToString(CustomLogicProfiles.GetProfile(name).quantityUserPoints - value));

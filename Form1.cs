@@ -7,6 +7,7 @@ using Telegram.Bot.Types.Enums;
 using PeaceDaBoll.Messages;
 using static PeaceDaBoll.Profiles.ProfileLogicXYI.CustomLogicProfiles;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace PeaceDaBoll
 {
@@ -67,25 +68,15 @@ namespace PeaceDaBoll
                             await Bot.SendTextMessageAsync(MyChatId, "Бот выключен.");
                         }
 
-                        if (messageText.StartsWith("/addpoint"))
+                        if (messageText.StartsWith("/point"))
                         {
-                            string userReplay = update.Message.ReplyToMessage?.From.Username.Replace("@", "");
-                            int value = Convert.ToInt32(Regex.Match(messageText, "(?<=/addpoint )[0-9]+").Value);
-                            if (value != 0)
-                            {
-                                UserProfileLogic.AddPointsToUser(userReplay, value);
+                            string userReply = update.Message.ReplyToMessage?.From.Username.Replace("@", "");
+                            int value = Convert.ToInt32(Regex.Match(messageText, "(?<=/point )[-]?[0-9]+").Value);
+                            if (value != 0) 
+                            { 
+                                UserProfileLogic.ChangePointsUser(userReply, value);
                             }
                         }
-                        else if (messageText.StartsWith("/reducepoint"))//Эта часть кода просто ебучий ужас
-                        {
-                            string userReplay = update.Message.ReplyToMessage?.From.Username.Replace("@", "");
-                            int value = Convert.ToInt32(Regex.Match(messageText, "(?<=/reducepoint )[0-9]+").Value);
-                            if (value != 0)
-                            {
-                                UserProfileLogic.TakePointsFromUser(userReplay, value);
-                            }
-                        }
-
                     }
                     if (isReceivingMessages == true)
                     {
@@ -99,7 +90,7 @@ namespace PeaceDaBoll
                             if (ProfileExists(name)) //Обработка последней активности пользователя исходя из отправленных сообщений
                             {
                                 UserProfileLogic.SetLastDate(name, DateTime.Now); //Изменение даты последней активности
-                                UserProfileLogic.AddMessageCount(name); //Обновление кол-ва сообщений отправленных пользователем
+                                UserProfileLogic.AddMessageCount(name); //Обновление кол-ва сообщений отправленных пользователем ++
                             }
                             else
                             {
@@ -152,7 +143,7 @@ namespace PeaceDaBoll
                         else if (messageText.StartsWith("/profile"))
                         {
                             string profile = "";
-                            string username = Regex.Match(update.Message.Text, @"(?<=/profile )[A-Za-z0-9]+").Value;
+                            string username = Regex.Match(messageText, @"(?<=/profile )[A-Za-z0-9]+").Value;
                             if (ProfileExists(username))
                             {
                                 profile = UserProfileLogic.ViewProfile(username);
@@ -163,7 +154,7 @@ namespace PeaceDaBoll
                             }
                             else if (messageText == "/profile")
                             {
-                                profile = UserProfileLogic.ViewProfile(update.Message.From.Username.Replace("@", ""));
+                                profile = UserProfileLogic.ViewProfile(messageText.Replace("@", ""));
                                 await botClient.SendTextMessageAsync(
                                     MyChatId,
                                     profile
@@ -303,4 +294,22 @@ namespace PeaceDaBoll
 //            profile
 //            );
 //        return;
+//}
+//if (messageText.StartsWith("/addpoint"))
+//{
+//    string userReplay = update.Message.ReplyToMessage?.From.Username.Replace("@", "");
+//    int value = Convert.ToInt32(Regex.Match(messageText, "(?<=/addpoint )[0-9]+").Value);
+//    if (value != 0)
+//    {
+//        UserProfileLogic.AddPointsToUser(userReplay, value);
+//    }
+//}
+//else if (messageText.StartsWith("/reducepoint"))//Эта часть кода просто ебучий ужас
+//{
+//    string userReplay = update.Message.ReplyToMessage?.From.Username.Replace("@", "");
+//    int value = Convert.ToInt32(Regex.Match(messageText, "(?<=/reducepoint )[0-9]+").Value);
+//    if (value != 0)
+//    {
+//        UserProfileLogic.TakePointsFromUser(userReplay, value);
+//    }
 //}

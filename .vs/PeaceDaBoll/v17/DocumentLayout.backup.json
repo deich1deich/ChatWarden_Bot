@@ -38,9 +38,9 @@
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\pavel\\source\\repos\\ChatWarden_Bot\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "C:\\Users\\pavel\\source\\repos\\ChatWarden_Bot\\Form1.cs",
-              "RelativeToolTip": "Form1.cs",
-              "ViewState": "AgIAACsAAAAAAAAAAAAqwFoAAAAVAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\pavel\\source\\repos\\ChatWarden_Bot\\Form1.cs*",
+              "RelativeToolTip": "Form1.cs*",
+              "ViewState": "AgIAADMAAAAAAAAAAAAAwEIAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-09T10:51:43.243Z",
               "EditorCaption": ""
@@ -53,7 +53,7 @@
               "RelativeDocumentMoniker": "Profiles\\UserProfileLogic.cs",
               "ToolTip": "C:\\Users\\pavel\\source\\repos\\ChatWarden_Bot\\Profiles\\UserProfileLogic.cs",
               "RelativeToolTip": "Profiles\\UserProfileLogic.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABYAAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAABcAAAAAAAAAAAAgwEEAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-11T12:16:47.244Z",
               "EditorCaption": ""
@@ -81,8 +81,7 @@
               "RelativeToolTip": "Profiles\\UserProfile.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-11T10:50:16.3Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-11T10:50:16.3Z"
             }
           ]
         }
