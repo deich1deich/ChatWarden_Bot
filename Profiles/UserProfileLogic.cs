@@ -12,26 +12,48 @@ namespace PeaceDaBoll.Profiles
 {
     public class UserProfileLogic
     {
-        //private static Dictionary<string, UserProfile> profiles = [];
-        public static readonly string[] Ranks = ["slave", "average boy", "master", "boss this gym"];
-
-        public static async Task AddUser(string name) //Создание профиля пользователя
+        public static readonly string[] Ranks = ["slave", "average boy", "master", "boss this gym"]; //Ранги
+        public enum ProfileValueType
+        {
+            CustomName,
+            currentRank,
+            quantityMessage,
+            LastActivity,
+            quantityUserWarnings,
+            quantityUserPoints
+        }
+        public static void AddUser(string name) //Создание профиля пользователя
         {
             UserProfile user = new();
             CustomLogicProfiles.AddNewProfile(user, name);
         }
+
+        public static void AddMessageCount(string name) => CustomLogicProfiles.EditProfile(name, ProfileValueType.quantityMessage, Convert.ToString(CustomLogicProfiles.GetProfile(name).quantityMessage + 1));
         //Добавить предупреждение у пользователя
-        public async Task AddWarningToUser(string name) => CustomLogicProfiles.EditProfile(name, CustomLogicProfiles.ProfileValueType.quantityUserWarnings, "1");
-
+        public static void AddWarningToUser(string name) => CustomLogicProfiles.EditProfile(name, ProfileValueType.quantityUserWarnings, Convert.ToString(Convert.ToInt32(CustomLogicProfiles.GetProfile(name).quantityUserWarnings) + 1));
+        
         //Уменьшить предупреждения у пользователя
-        public async Task ReduceWarningToUser(string name, int count) => CustomLogicProfiles.GetProfile(name).quantityUserWarnings = CustomLogicProfiles.GetProfile(name).quantityUserWarnings <= 0 ? 0 : CustomLogicProfiles.GetProfile(name).quantityUserWarnings - count;
-
+        public static void ReduceWarningToUser(string name) => CustomLogicProfiles.EditProfile(name, ProfileValueType.quantityUserWarnings, Convert.ToString(Convert.ToInt32(CustomLogicProfiles.GetProfile(name).quantityUserWarnings) - 1));
+        
         //Убрать предупреждения у пользователя
-        public async Task RemoveWarningToUser(string name) => CustomLogicProfiles.GetProfile(name).quantityUserWarnings = 0;
-
+        public static void RemoveWarningToUser(string name) => CustomLogicProfiles.EditProfile(name, ProfileValueType.quantityUserWarnings, "0");
+        
         //Добавить очки пользователю
-        public async Task AddPointsToUser(string name, int count) => CustomLogicProfiles.GetProfile(name).quantityUserPoints += count;
+        public static void AddPointsToUser(string name, int value) => CustomLogicProfiles.EditProfile(name, ProfileValueType.quantityUserPoints, Convert.ToString(CustomLogicProfiles.GetProfile(name).quantityUserPoints + value));
+        
+        //Отнять очки пользователя
+        public static void TakePointsFromUser(string name, int value) => CustomLogicProfiles.EditProfile(name, ProfileValueType.quantityUserPoints, Convert.ToString(CustomLogicProfiles.GetProfile(name).quantityUserPoints - value));
+        
+        //Добавление/изменение пользователю второго ника
+        public static void EditCustomUsername(string name, string value) => CustomLogicProfiles.EditProfile(name, ProfileValueType.CustomName, value);
+        
+        //Присвоение ранга
+        public static void GiveRank(string name, int value) => CustomLogicProfiles.EditProfile(name, ProfileValueType.currentRank, value.ToString());
 
+        //Присвоение последней активности пользователя
+        public static void SetLastDate(string name, DateTime time) => CustomLogicProfiles.EditProfile(name, ProfileValueType.LastActivity, time.ToString());
+        
+        //Получение данных профиля пользователя и их компоновки в нужно виде для вывода сообщения в чате
         public static string ViewProfile(string name)
         {
             UserProfile user = CustomLogicProfiles.GetProfile(name);
@@ -39,13 +61,14 @@ namespace PeaceDaBoll.Profiles
             $"Профиль: {user.Username} {user.CustomName}" + Environment.NewLine +
             $"Звание: {Ranks[user.currentRank]}" + Environment.NewLine +
             $"Кол-во отправленных сообщений: {user.quantityMessage}" + Environment.NewLine +
-            $"Кол-во полученных предупреждений: {user.quantityUserWarnings}" + Environment.NewLine +
+            $"Кол-во полученных предупреждений: {user.quantityUserWarnings}/5" + Environment.NewLine +
             $"Последняя активность: {user.LastActivity}" + Environment.NewLine +
             $"Первая активность: {user.FirstActivity}" + Environment.NewLine +
-            $"Баллы на счету: {user.quantityUserPoints}" /*+*/
-            /*$""*/;
-            //MessageBox.Show("Сделано!");
+            $"Баллы на счету: {user.quantityUserPoints}" + Environment.NewLine +
+            $"Реакции: ";
             return text;
         }
     }
 }
+
+//Это ебучий ужас, а не код

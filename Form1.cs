@@ -1,32 +1,23 @@
 using PeaceDaBoll.Profiles;
-using System.Diagnostics.Contracts;
-using System.IO;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
-using Telegram.Bot.Requests;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types.ReplyMarkups;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using File = System.IO.File;
-using Message = Telegram.Bot.Types.Message;
 using PeaceDaBoll.Messages;
-using PeaceDaBoll.Profiles.ProfileLogicXYI;
-using Newtonsoft.Json.Linq;
 using static PeaceDaBoll.Profiles.ProfileLogicXYI.CustomLogicProfiles;
+using System.Windows.Forms;
 
 namespace PeaceDaBoll
 {
-    // Добавить массив со всеми месседжами, который обнуляется в 00:00:00
-    // Реакции из массива с месседжами
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ 00:00:00
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     //
 
     public partial class Form1 : Form
     {
-        private static readonly string Token = "7665926697:AAFU7O64QE-jYfUSbjEG11ur8WkwAVolmbQ"; // Замените на ваш токен
-        private const string MyChatId = "-1002397315613"; //cwars - -1002279258485 // тестовый чат - -1002397315613
+        private static readonly string Token = "7665926697:AAFU7O64QE-jYfUSbjEG11ur8WkwAVolmbQ"; // С‚РѕРєРµРЅ Р±РѕС‚Р°
+        private const string MyChatId = "-1002397315613"; //cwars - -1002279258485 || С‚РµСЃС‚РѕРІС‹Р№ С‡Р°С‚ - -1002397315613
         private static TelegramBotClient Bot;
         private CancellationTokenSource cts;
         private static bool isReceivingMessages = true;
@@ -34,126 +25,181 @@ namespace PeaceDaBoll
         public Form1()
         {
             InitializeComponent();
-            //EditProfile("fylax224luv", ProfileValueType.quantityMessage, "1488");
-            //MessageBox.Show("Test");
         }
 
         private async void MainForm_Load(object sender, EventArgs e)
         {
             Bot = new TelegramBotClient(Token);
             cts = new CancellationTokenSource();
-            // Запускаем получение обновлений
             Bot.StartReceiving(
                HandleUpdateAsync,
                HandleErrorAsync,
-               new ReceiverOptions { AllowedUpdates = { } }, // Укажите типы обновлений, которые хотите получать
+               new ReceiverOptions { AllowedUpdates = { } },
                cancellationToken: cts.Token
            );
             Update();
             await Task.Delay(1);
         }
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e) => cts.Cancel(); // Останавливаем получение обновлений при закрытии формы
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e) => cts.Cancel();
 
         private async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
-            if (update.Type == UpdateType.Message && update.Message?.Text != null)
+            try
             {
-                // Отображаем полученное сообщение в TextBox
-                Invoke((MethodInvoker)(() => Chat_TextBox.Text += $"[{DateTime.Now:G}] {update.Message.From.Username} ({update.Message.From.Id}): {update.Message.Text}{Environment.NewLine}"));
-                var userId = update.Message.From.Id;
-                var user = update.Message.From;
-                string messageText = update.Message.Text;
-                var chatMember = await Bot.GetChatMemberAsync(chatId: MyChatId, userId);
-                if (chatMember.Status == ChatMemberStatus.Administrator || chatMember.Status == ChatMemberStatus.Creator)
+                if (update.Type == UpdateType.Message && update.Message?.Text != null)
                 {
-                    if (messageText.StartsWith("/on"))
+                    Invoke((MethodInvoker)(() => Chat_TextBox.Text += $"[{DateTime.Now:G}] {update.Message.From.Username} ({update.Message.From.Id}): {update.Message.Text}{Environment.NewLine}"));
+                    var userId = update.Message.From.Id;
+                    var user = update.Message.From;
+                    string messageText = update.Message.Text;
+                    var chatMember = await Bot.GetChatMemberAsync(chatId: MyChatId, userId);
+                    if (chatMember.Status == ChatMemberStatus.Administrator || chatMember.Status == ChatMemberStatus.Creator || user.Username.Replace("@", "") == "BlastorChan")
                     {
-                        isReceivingMessages = true;
-                        await Bot.SendTextMessageAsync(MyChatId, "Бот включен.");
-
-                    }
-                    else if (messageText.StartsWith("/off"))
-                    {
-                        isReceivingMessages = false;
-                        await Bot.SendTextMessageAsync(MyChatId, "Бот выключен.");
-                    }
-                }
-                if (isReceivingMessages == true)
-                {
-                    if (chatMember.Status == ChatMemberStatus.Member)
-                    {
-                        await BadwordsCheck.MessageCheck(update.Message, MyChatId, Bot);
-                    }
-
-                    if (messageText.StartsWith("/help"))
-                    {
-                        await Bot.SendTextMessageAsync(
-                        chatId: MyChatId,
-                        text:
-                        "Список команд:\n1. /roll - Генерирует случайное число в диапазоне от 0 до указанного числа. " +
-                        "Пример: /roll 100\n2. /voteban - Создаёт голосование за бан пользователя(нельзя создать против администратора)\n" +
-                        "3. /vote - проголосовать за бан, когда голосование открыто\n\n" +
-                        "Для поддержки в развитии проекта: СБЕР 4274 3200 5645 0680. Все полученные средства уйдут на развитие проекта.\n\n" +
-                        "Для админов: \n" +
-                        "/badword [слово] - вписать слово в список запрещённых\n" +
-                        "/votebancancel - отменить голосование за бан",
-                        cancellationToken: cancellationToken);
-                    }
-                    else if (messageText.StartsWith("/roll") && int.TryParse(Regex.Match(messageText, "[0-9]+$").Value, out int value))
-                    {
-                        await Bot.SendTextMessageAsync(
-                            chatId: MyChatId,
-                            text: new Random().Next(0, Convert.ToInt32(new Regex("[0-9]+$").Match(update.Message.Text).Value) + 1).ToString(),
-                            cancellationToken: cancellationToken);
-                    }
-                    else if (messageText.StartsWith("/badword"))
-                    {
-                        await BadwordsCheck.EnterBadword(update.Message, chatMember, MyChatId, Bot);
-                    }
-                    else if (messageText.StartsWith("/voteban") && update.Message.ReplyToMessage?.From.Id != null)
-                    {
-                        await Voting.StartVoting(MyChatId, update.Message, userId, Bot);
-                    }
-                    else if (messageText.StartsWith("/cancelvoteban"))
-                    {
-                        await Voting.CancelVoting(MyChatId, Bot);
-                    }
-                    else if (messageText.StartsWith("/vote"))
-                    {
-                        await Voting.VotingProcessing(MyChatId, (int)userId, Bot);
-                    }
-                    else if (messageText.StartsWith("/profile"))
-                    {
-                        string profile = "";
-                        switch (ProfileExists(update.Message.ReplyToMessage?.From.Username))
+                        if (messageText.StartsWith("/on"))
                         {
-                            case true:
-                                profile = UserProfileLogic.ViewProfile(update.Message.ReplyToMessage?.From.Username);
-                                await botClient.SendTextMessageAsync(
-                                    MyChatId,
-                                    profile
-                                    );
-                                return;
-                            case false:
-                                await botClient.SendTextMessageAsync(
-                                    MyChatId,
-                                    "Профиля пользователя не существует! Сейчас будет создан профиль..."
-                                    );
-                                await UserProfileLogic.AddUser(update.Message.ReplyToMessage?.From.Username);
-                                profile = UserProfileLogic.ViewProfile(update.Message.ReplyToMessage?.From.Username);
-                                await botClient.SendTextMessageAsync(
-                                    MyChatId,
-                                    profile
-                                    );
-                                return;
+                            isReceivingMessages = true;
+                            await Bot.SendTextMessageAsync(MyChatId, "Р‘РѕС‚ РІРєР»СЋС‡РµРЅ.");
+
+                        }
+                        else if (messageText.StartsWith("/off"))
+                        {
+                            isReceivingMessages = false;
+                            await Bot.SendTextMessageAsync(MyChatId, "Р‘РѕС‚ РІС‹РєР»СЋС‡РµРЅ.");
+                        }
+
+                        if (messageText.StartsWith("/addpoint"))
+                        {
+                            string userReplay = update.Message.ReplyToMessage?.From.Username.Replace("@", "");
+                            int value = Convert.ToInt32(Regex.Match(messageText, "(?<=/addpoint )[0-9]+").Value);
+                            if (value != 0)
+                            {
+                                UserProfileLogic.AddPointsToUser(userReplay, value);
+                            }
+                        }
+                        else if (messageText.StartsWith("/reducepoint"))//Р­С‚Р° С‡Р°СЃС‚СЊ РєРѕРґР° РїСЂРѕСЃС‚Рѕ РµР±СѓС‡РёР№ СѓР¶Р°СЃ
+                        {
+                            string userReplay = update.Message.ReplyToMessage?.From.Username.Replace("@", "");
+                            int value = Convert.ToInt32(Regex.Match(messageText, "(?<=/reducepoint )[0-9]+").Value);
+                            if (value != 0)
+                            {
+                                UserProfileLogic.TakePointsFromUser(userReplay, value);
+                            }
                         }
 
                     }
-                    //else if (messageText.StartsWith("/create") && !ProfileExists(update.Message.From.Username.Replace("@", "")))
-                    //{
-                    //    CustomLogicProfiles.AddNewProfile(, update.Message.From.Username.Replace("@", ""));
-                    //}
+                    if (isReceivingMessages == true)
+                    {
+                        if (chatMember.Status == ChatMemberStatus.Member)
+                        {
+                            await BadwordsCheck.MessageCheck(update.Message, MyChatId, Bot);
+                        }
+                        if (update.Type == UpdateType.Message)
+                        {
+                            string name = user.Username.Replace("@", "");
+                            if (ProfileExists(name)) //РћР±СЂР°Р±РѕС‚РєР° РїРѕСЃР»РµРґРЅРµР№ Р°РєС‚РёРІРЅРѕСЃС‚Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РёСЃС…РѕРґСЏ РёР· РѕС‚РїСЂР°РІР»РµРЅРЅС‹С… СЃРѕРѕР±С‰РµРЅРёР№
+                            {
+                                UserProfileLogic.SetLastDate(name, DateTime.Now); //РР·РјРµРЅРµРЅРёРµ РґР°С‚С‹ РїРѕСЃР»РµРґРЅРµР№ Р°РєС‚РёРІРЅРѕСЃС‚Рё
+                                UserProfileLogic.AddMessageCount(name); //РћР±РЅРѕРІР»РµРЅРёРµ РєРѕР»-РІР° СЃРѕРѕР±С‰РµРЅРёР№ РѕС‚РїСЂР°РІР»РµРЅРЅС‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј
+                            }
+                            else
+                            {
+                                UserProfileLogic.AddUser(name);
+                                await botClient.SendTextMessageAsync(
+                                    MyChatId,
+                                    $"РџСЂРѕС„РёР»СЊ РЅРѕРІРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ СЃРѕР·РґР°РЅ!" + Environment.NewLine +
+                                    $"{UserProfileLogic.ViewProfile(name)}"
+                                    );
+                                UserProfileLogic.AddMessageCount(name);
+                            }
+                        }
+                        if (messageText.StartsWith("/help"))
+                        {
+                            await Bot.SendTextMessageAsync(
+                            chatId: MyChatId,
+                            text:
+                            "РЎРїРёСЃРѕРє РєРѕРјР°РЅРґ:\n1. /roll - Р“РµРЅРµСЂРёСЂСѓРµС‚ СЃР»СѓС‡Р°Р№РЅРѕРµ С‡РёСЃР»Рѕ РІ РґРёР°РїР°Р·РѕРЅРµ РѕС‚ 0 РґРѕ СѓРєР°Р·Р°РЅРЅРѕРіРѕ С‡РёСЃР»Р°. " +
+                            "РџСЂРёРјРµСЂ: /roll 100\n2. /voteban - РЎРѕР·РґР°С‘С‚ РіРѕР»РѕСЃРѕРІР°РЅРёРµ Р·Р° Р±Р°РЅ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ(РЅРµР»СЊР·СЏ СЃРѕР·РґР°С‚СЊ РїСЂРѕС‚РёРІ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°)\n" +
+                            "3. /vote - РїСЂРѕРіРѕР»РѕСЃРѕРІР°С‚СЊ Р·Р° Р±Р°РЅ, РєРѕРіРґР° РіРѕР»РѕСЃРѕРІР°РЅРёРµ РѕС‚РєСЂС‹С‚Рѕ\n\n" +
+                            "Р”Р»СЏ РїРѕРґРґРµСЂР¶РєРё РІ СЂР°Р·РІРёС‚РёРё РїСЂРѕРµРєС‚Р°: РЎР‘Р•Р  4274 3200 5645 0680. Р’СЃРµ РїРѕР»СѓС‡РµРЅРЅС‹Рµ СЃСЂРµРґСЃС‚РІР° СѓР№РґСѓС‚ РЅР° СЂР°Р·РІРёС‚РёРµ РїСЂРѕРµРєС‚Р°.\n\n" +
+                            "Р”Р»СЏ Р°РґРјРёРЅРѕРІ: \n" +
+                            "/badword [СЃР»РѕРІРѕ] - РІРїРёСЃР°С‚СЊ СЃР»РѕРІРѕ РІ СЃРїРёСЃРѕРє Р·Р°РїСЂРµС‰С‘РЅРЅС‹С…\n" +
+                            "/votebancancel - РѕС‚РјРµРЅРёС‚СЊ РіРѕР»РѕСЃРѕРІР°РЅРёРµ Р·Р° Р±Р°РЅ",
+                            cancellationToken: cancellationToken);
+                        }
+                        else if (messageText.StartsWith("/roll") && int.TryParse(Regex.Match(messageText, "[0-9]+$").Value, out int value))
+                        {
+                            await Bot.SendTextMessageAsync(
+                                chatId: MyChatId,
+                                text: new Random().Next(0, Convert.ToInt32(new Regex("[0-9]+$").Match(update.Message.Text).Value) + 1).ToString(),
+                                cancellationToken: cancellationToken);
+                        }
+                        else if (messageText.StartsWith("/badword"))
+                        {
+                            await BadwordsCheck.EnterBadword(update.Message, chatMember, MyChatId, Bot);
+                        }
+                        else if (messageText.StartsWith("/voteban") && update.Message.ReplyToMessage?.From.Id != null)
+                        {
+                            await Voting.StartVoting(MyChatId, update.Message, userId, Bot);
+                        }
+                        else if (messageText.StartsWith("/cancelvoteban"))
+                        {
+                            await Voting.CancelVoting(MyChatId, Bot);
+                        }
+                        else if (messageText.StartsWith("/vote"))
+                        {
+                            await Voting.VotingProcessing(MyChatId, (int)userId, Bot);
+                        }
+                        else if (messageText.StartsWith("/profile"))
+                        {
+                            string profile = "";
+                            string username = Regex.Match(update.Message.Text, @"(?<=/profile )[A-Za-z0-9]+").Value;
+                            if (ProfileExists(username))
+                            {
+                                profile = UserProfileLogic.ViewProfile(username);
+                                await botClient.SendTextMessageAsync(
+                                    MyChatId,
+                                    profile
+                                    );
+                            }
+                            else if (messageText == "/profile")
+                            {
+                                profile = UserProfileLogic.ViewProfile(update.Message.From.Username.Replace("@", ""));
+                                await botClient.SendTextMessageAsync(
+                                    MyChatId,
+                                    profile
+                                    );
+                            }
+                            else
+                            {
+                                await botClient.SendTextMessageAsync(
+                                    MyChatId,
+                                    "РўР°РєРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚!"
+                                    );
+                            }
+                        }
+                        //else if (messageText.StartsWith("/create"))
+                        //{
+                        //    //string username = Regex.Match(update.Message.Text, @"(?<=/profile )[A-Za-z0-9]+").Value;
+                        //    string username = update.Message.From.Username.Replace("@", "");
+                        //    if (!ProfileExists(username))
+                        //    {
+                        //        UserProfileLogic.AddUser(username);
+                        //        await botClient.SendTextMessageAsync(
+                        //            MyChatId,
+                        //            $"РџСЂРѕС„РёР»СЊ {username} СЃРѕР·РґР°РЅ!"
+                        //            );
+                        //    }
+                        //}
+                        //else if (messageText.StartsWith("/create") && !ProfileExists(update.Message.From.Username.Replace("@", "")))
+                        //{
+                        //    CustomLogicProfiles.AddNewProfile(, update.Message.From.Username.Replace("@", ""));
+                        //}
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Chat_TextBox.Text += $"РћС€РёР±РєР°: {ex}" + Environment.NewLine;
             }
         }
 
@@ -165,7 +211,7 @@ namespace PeaceDaBoll
         //        MessageBox.Show("update with newchatMember");
         //        await Bot.SendTextMessageAsync(
         //            chatId: MyChatId,
-        //            text: $"{update.ChatMember.NewChatMember.User.Username}, добро пожаловать!",
+        //            text: $"{update.ChatMember.NewChatMember.User.Username}, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!",
         //            cancellationToken: cancellationToken);
         //    }
         //    else if(update.ChatMember.OldChatMember.Status == ChatMemberStatus.Left)
@@ -173,15 +219,15 @@ namespace PeaceDaBoll
         //        MessageBox.Show("update with leftChatMember");
         //        await Bot.SendTextMessageAsync(
         //            chatId: MyChatId,
-        //            text: "И не возвращайся.",
+        //            text: "пїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.",
         //            cancellationToken: cancellationToken);
         //    } 
         //}
 
         private Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
         {
-            // Обработка ошибок
-            MessageBox.Show($"Ошибка: {exception.Message}\nStackTrace: {exception.StackTrace}\nSource: {exception.Source}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+            MessageBox.Show($"Error: {exception.Message}\nStackTrace: {exception.StackTrace}\nSource: {exception.Source}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return Task.CompletedTask;
         }
 
@@ -190,14 +236,14 @@ namespace PeaceDaBoll
             string message = TextMessage_TextBox.Text;
             if (!string.IsNullOrEmpty(message))
             {
-                // Отправка сообщения в чат
+                // РћС‚РїСЂР°РІРєР° СЃРѕРѕР±С‰РµРЅРёСЏ РІ С‡Р°С‚
                 await Bot.SendTextMessageAsync(
-                    chatId: MyChatId, // Замените на ваш chat ID
+                    chatId: MyChatId, // Р—Р°РјРµРЅРёС‚Рµ РЅР° РІР°С€ chat ID
                     text: message
                 );
 
-                // Отображаем отправленное сообщение в ListBox
-                Chat_TextBox.Text += $"Отправлено: {message}" + Environment.NewLine;
+                // РћС‚РѕР±СЂР°Р¶Р°РµРј РѕС‚РїСЂР°РІР»РµРЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ РІ ListBox
+                Chat_TextBox.Text += $"РћС‚РїСЂР°РІР»РµРЅРѕ: {message}" + Environment.NewLine;
                 TextMessage_TextBox.Clear();
             }
         }
@@ -219,13 +265,14 @@ namespace PeaceDaBoll
 
                         await Bot.SendTextMessageAsync(
                         chatId: MyChatId,
-                        text: "Список команд:\n1. /roll - Генерирует случайное число в диапазоне от 0 до указанного числа. " +
-                        "Пример: /roll 100\n2. /voteban - Создаёт голосование за бан пользователя(нельзя создать против администратора)\n" +
-                        "3. /vote - проголосовать за бан, когда голосование открыто\n\n" +
-                        "Для поддержки в развитии проекта: СБЕР 4274 3200 5645 0680. Все полученные средства уйдут на развитие проекта.\n\n" +
-                        "Для админов: \n" +
-                        "/badword [слово] - вписать слово в список запрещённых\n" +
-                        "/votebancancel - отменить голосование за бан",
+                        text:
+                        "РЎРїРёСЃРѕРє РєРѕРјР°РЅРґ:\n1. /roll - Р“РµРЅРµСЂРёСЂСѓРµС‚ СЃР»СѓС‡Р°Р№РЅРѕРµ С‡РёСЃР»Рѕ РІ РґРёР°РїР°Р·РѕРЅРµ РѕС‚ 0 РґРѕ СѓРєР°Р·Р°РЅРЅРѕРіРѕ С‡РёСЃР»Р°. " +
+                        "РџСЂРёРјРµСЂ: /roll 100\n2. /voteban - РЎРѕР·РґР°С‘С‚ РіРѕР»РѕСЃРѕРІР°РЅРёРµ Р·Р° Р±Р°РЅ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ(РЅРµР»СЊР·СЏ СЃРѕР·РґР°С‚СЊ РїСЂРѕС‚РёРІ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°)\n" +
+                        "3. /vote - РїСЂРѕРіРѕР»РѕСЃРѕРІР°С‚СЊ Р·Р° Р±Р°РЅ, РєРѕРіРґР° РіРѕР»РѕСЃРѕРІР°РЅРёРµ РѕС‚РєСЂС‹С‚Рѕ\n\n" +
+                        "Р”Р»СЏ РїРѕРґРґРµСЂР¶РєРё РІ СЂР°Р·РІРёС‚РёРё РїСЂРѕРµРєС‚Р°: РЎР‘Р•Р  4274 3200 5645 0680. Р’СЃРµ РїРѕР»СѓС‡РµРЅРЅС‹Рµ СЃСЂРµРґСЃС‚РІР° СѓР№РґСѓС‚ РЅР° СЂР°Р·РІРёС‚РёРµ РїСЂРѕРµРєС‚Р°.\n\n" +
+                        "Р”Р»СЏ Р°РґРјРёРЅРѕРІ: \n" +
+                        "/badword [СЃР»РѕРІРѕ] - РІРїРёСЃР°С‚СЊ СЃР»РѕРІРѕ РІ СЃРїРёСЃРѕРє Р·Р°РїСЂРµС‰С‘РЅРЅС‹С…\n" +
+                        "/votebancancel - РѕС‚РјРµРЅРёС‚СЊ РіРѕР»РѕСЃРѕРІР°РЅРёРµ Р·Р° Р±Р°РЅ",
                         cancellationToken: cts.Token);
                     }
                 }
@@ -234,3 +281,26 @@ namespace PeaceDaBoll
         }
     }
 }
+
+//switch (ProfileExists(update.Message.ReplyToMessage?.From.Username))
+//{
+//    case true:
+//        profile = UserProfileLogic.ViewProfile(update.Message.ReplyToMessage?.From.Username);
+//        await botClient.SendTextMessageAsync(
+//            MyChatId,
+//            profile
+//            );
+//        return;
+//    case false:
+//        await botClient.SendTextMessageAsync(
+//            MyChatId,
+//            "РЈ РґР°РЅРЅРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РїСЂРѕС„РёР»СЏ. РЎРѕР·РґР°РЅРёРµ РїСЂРѕС„РёР»СЏ..."
+//            );
+//        await UserProfileLogic.AddUser(update.Message.ReplyToMessage?.From.Username);
+//        profile = UserProfileLogic.ViewProfile(update.Message.ReplyToMessage?.From.Username);
+//        await botClient.SendTextMessageAsync(
+//            MyChatId,
+//            profile
+//            );
+//        return;
+//}

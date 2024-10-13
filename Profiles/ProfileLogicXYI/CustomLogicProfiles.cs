@@ -1,5 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using File = System.IO.File;
+using static PeaceDaBoll.Profiles.UserProfileLogic;
 
 namespace PeaceDaBoll.Profiles.ProfileLogicXYI
 {
@@ -8,16 +9,6 @@ namespace PeaceDaBoll.Profiles.ProfileLogicXYI
         private static readonly string path = Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + @"\Profiles.xyi";
 
         public static Dictionary<string, UserProfile> Profiles;
-        public enum ProfileValueType
-        {
-            CustomName,
-            currentRank,
-            quantityMessage,
-            //FirstActivity,
-            LastActivity,
-            quantityUserWarnings,
-            quantityUserPoints
-        }
 
         public static void AddNewProfile(UserProfile user, string name)
         {
@@ -85,10 +76,6 @@ namespace PeaceDaBoll.Profiles.ProfileLogicXYI
                     NewValue = $"{Username} quantityMessage: <{value}>";
                     text = text.Replace($"{Username} quantityMessage: <{GetProfile(Username).quantityMessage}>", NewValue);
                     break;
-                //case ProfileValueType.FirstActivity:
-                //    NewValue = $"{Username} FirstActivity: <{value}>";
-                //    text = text.Replace($"{Username} FirstActivity: <{GetProfile(Username).FirstActivity}>", NewValue);
-                //    break;
                 case ProfileValueType.LastActivity:
                     NewValue = $"{Username} LastActivity: <{value}>";
                     text = text.Replace($"{Username} LastActivity: <{GetProfile(Username).LastActivity}>", NewValue);
