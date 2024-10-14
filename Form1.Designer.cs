@@ -34,6 +34,7 @@
             textBox1 = new TextBox();
             textBox2 = new TextBox();
             button2 = new Button();
+            label1 = new Label();
             SuspendLayout();
             // 
             // Chat_TextBox
@@ -77,6 +78,7 @@
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(462, 206);
             textBox2.TabIndex = 4;
+            textBox2.Text = "Для поддержки в развитии проекта: \r\nСБЕР 4274 3200 5645 0680 \r\nВсе полученные средства уйдут на развитие проекта.";
             // 
             // button2
             // 
@@ -88,11 +90,22 @@
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(606, 253);
+            label1.Name = "label1";
+            label1.Size = new Size(149, 20);
+            label1.TabIndex = 6;
+            label1.Text = "Прошедшее время: ";
+            label1.Click += label1_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1081, 612);
+            Controls.Add(label1);
             Controls.Add(button2);
             Controls.Add(textBox2);
             Controls.Add(textBox1);
@@ -115,5 +128,6 @@
         private TextBox textBox1;
         private TextBox textBox2;
         private Button button2;
+        private Label label1;
     }
 }

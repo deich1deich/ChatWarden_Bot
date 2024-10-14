@@ -46,6 +46,54 @@ namespace PeaceDaBoll.Profiles
             $"Баллы на счету: {user.quantityUserPoints}";
             return text;
         }
+
+        public static string GetRank(int messages)
+        {
+            string rank = "";
+            if (messages <= 100)
+                rank = "рядовой";
+            else if (messages >= 101 && messages <= 1000)
+                rank = "рядовой";
+            else if (messages >= 101 && messages <= 10040)
+                rank = "рядовой";
+            else if (messages >= 101 && messages <= 10500)
+                rank = "рядовой";
+            else if (messages >= 101 && messages <= 10300)
+                rank = "рядовой";
+            else if (messages >= 101 && messages <= 10100)
+                rank = "рядовой";
+            else if (messages >= 101 && messages <= 1000)
+                rank = "рядовой";
+            else if (messages >= 101 && messages <= 1000)
+                rank = "рядовой";
+            else if (messages >= 101 && messages <= 1000)
+                rank = "рядовой";
+            else if (messages >= 101 && messages <= 1000)
+                rank = "рядовой";
+            else if (messages >= 101 && messages <= 1000)
+                rank = "рядовой";
+            else if (messages >= 101 && messages <= 1000)
+                rank = "рядовой";
+            else if (messages >= 101 && messages <= 1000)
+                rank = "рядовой";
+            else if (messages >= 101 && messages <= 1000)
+                rank = "рядовой";
+            else if (messages >= 101 && messages <= 1000)
+                rank = "рядовой";
+            else if (messages >= 101 && messages <= 1000)
+                rank = "рядовой";
+            else if (messages >= 101 && messages <= 1000)
+                rank = "рядовой";
+            else if (messages >= 101 && messages <= 1000)
+                rank = "рядовой";
+            else if (messages >= 101 && messages <= 1000)
+                rank = "рядовой";
+            else if (messages >= 101 && messages <= 1000)
+                rank = "рядовой";
+            else if (messages >= 101 && messages <= 1000)
+                rank = "рядовой";
+            return rank;
+        }
     }
 }
 
