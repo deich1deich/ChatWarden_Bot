@@ -1,10 +1,10 @@
 @"BlastorChan"
 {
 BlastorChan CustomName: <>
-BlastorChan currentRank: <0>
-BlastorChan quantityMessage: <1004>
+BlastorChan currentRank: <1>
+BlastorChan quantityMessage: <102>
 BlastorChan FirstActivity: <14.10.2024 12:43:06>
-BlastorChan LastActivity: <14.10.2024 16:51:27>
+BlastorChan LastActivity: <14.10.2024 19:36:59>
 BlastorChan quantityUserWarnings: <0>
 BlastorChan quantityUserPoints: <0>
 }
@@ -24,9 +24,9 @@ IamDeich quantityUserPoints: <0>
 {
 fylax224luv CustomName: <>
 fylax224luv currentRank: <0>
-fylax224luv quantityMessage: <12>
+fylax224luv quantityMessage: <13>
 fylax224luv FirstActivity: <14.10.2024 15:15:00>
-fylax224luv LastActivity: <14.10.2024 16:52:32>
+fylax224luv LastActivity: <14.10.2024 19:37:06>
 fylax224luv quantityUserWarnings: <0>
 fylax224luv quantityUserPoints: <0>
 }

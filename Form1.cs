@@ -155,6 +155,7 @@ namespace PeaceDaBoll
                         if (update.Type == UpdateType.Message)
                         {
                             string name = user.Username.Replace("@", "");
+                            await UserProfileLogic.RankUp(name);
                             if (ProfileExists(name)) //Обработка последней активности пользователя исходя из отправленных сообщений
                             {
                                 await UserProfileLogic.SetLastDate(name, DateTime.Now); //Изменение даты последней активности
