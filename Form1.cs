@@ -8,6 +8,7 @@ using PeaceDaBoll.Messages;
 using static PeaceDaBoll.Profiles.ProfileLogicXYI.CustomLogicProfiles;
 using PeaceDaBoll.Messages.Logging;
 using Microsoft.VisualBasic.ApplicationServices;
+using System.Windows.Forms;
 
 namespace PeaceDaBoll
 {
@@ -42,6 +43,7 @@ namespace PeaceDaBoll
            );
             Update();
             await Task.Delay(1);
+            notifyIcon1.Text = "ChatWarden_Bot";
         }
 
         public static async Task<bool> IsUserAdmin(ITelegramBotClient botClien, string chatId, long user)
@@ -319,6 +321,33 @@ namespace PeaceDaBoll
         {
 
         }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
+            notifyIcon1.Visible = false;
+            WindowState = FormWindowState.Normal;
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                this.Hide();
+                notifyIcon1.Visible = true;
+            }
+            else if (FormWindowState.Normal == this.WindowState)
+            { notifyIcon1.Visible = false; }
+        }
+        //private void notifyIcon1_Click(object sender, EventArgs e)
+        //{
+        //    if (this.WindowState == FormWindowState.Minimized)
+        //    {
+        //        this.WindowState = FormWindowState.Normal;
+        //        this.ShowInTaskbar = true;
+        //        notifyIcon1.Visible = false;
+        //    }
+        //}
     }
 }
 //else if (messageText.StartsWith("/create"))
