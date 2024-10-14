@@ -6,7 +6,8 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using PeaceDaBoll.Messages;
 using static PeaceDaBoll.Profiles.ProfileLogicXYI.CustomLogicProfiles;
-using PeaceDaBoll.Messages.Logging;
+using System.Windows.Forms;
+using System.Drawing;
 using Microsoft.VisualBasic.ApplicationServices;
 
 namespace PeaceDaBoll
@@ -44,9 +45,9 @@ namespace PeaceDaBoll
             await Task.Delay(1);
         }
 
-        public static async Task<bool> IsUserAdmin(ITelegramBotClient botClien, string chatId, long user)
+        public static async Task<bool> IsUserAdmin(ITelegramBotClient botClient, string chatId, long user)
         {
-            var chatMembers = await botClien.GetChatMemberAsync(chatId, user);
+            var chatMembers = await botClient.GetChatMemberAsync(chatId, user);
 
             return chatMembers.Status == ChatMemberStatus.Administrator || chatMembers.Status == ChatMemberStatus.Creator;
         }
@@ -57,34 +58,13 @@ namespace PeaceDaBoll
         {
             try
             {
-                var userId = update.Message.From.Id;
-                var user = update.Message.From;
-                string messageText = update.Message.Text;
-                var chatMember = await Bot.GetChatMemberAsync(chatId: MyChatId, userId);
-
-                if (MessageType.Text == update.Message.Type)
-                {
-                    await LoggingLogic.LoggingWriter($"({user}) {messageText}");
-                }
-                else if (MessageType.Audio == update.Message.Type)
-                {
-                    int dur = update.Message.Audio.Duration;
-                    await LoggingLogic.LoggingWriter($"({user}) отправил аудио длиной {dur} сек");
-                }
-                else if (MessageType.Voice == update.Message.Type)
-                {
-                    int dur = update.Message.Voice.Duration;
-                    await LoggingLogic.LoggingWriter($"({user}) отправил аудио длиной {dur} сек");
-                }
-                else if (MessageType.Photo == update.Message.Type)
-                {
-                    await LoggingLogic.LoggingWriter($"({user}) отправил изображение");
-                }
-
                 if (update.Type == UpdateType.Message && update.Message?.Text != null)
                 {
                     Invoke((MethodInvoker)(() => Chat_TextBox.Text += $"[{DateTime.Now:G}] {update.Message.From.Username} ({update.Message.From.Id}): {update.Message.Text}{Environment.NewLine}"));
-
+                    var userId = update.Message.From.Id;
+                    var user = update.Message.From;
+                    string messageText = update.Message.Text;
+                    var chatMember = await Bot.GetChatMemberAsync(chatId: MyChatId, userId);
                     if (chatMember.Status == ChatMemberStatus.Administrator || chatMember.Status == ChatMemberStatus.Creator || user.Username.Replace("@", "") == "BlastorChan" || user.Username.Replace("@", "") == "IamDeich")
                     {
                         if (messageText.StartsWith("/on"))
@@ -117,19 +97,23 @@ namespace PeaceDaBoll
                             string messageReply = update.Message.ReplyToMessage.Text;
                             if (!await IsUserAdmin(botClient, MyChatId, userReplyId))
                             {
-                                if (messageText.StartsWith("/warn"))
+                                if (messageText.StartsWith("/warnP"))
                                 {
-                                    int warn = Convert.ToInt32(Regex.Match(messageText, "(?<=/warn )[-]?[0-9]+").Value);
-                                    if (warn > 0)
-                                    {
-                                        await UserProfileLogic.AddWarningToUser(userReply);
-                                        await botClient.SendTextMessageAsync(MyChatId, $"Предупреждение(я) для {userReply}");
-                                    }
-                                    else if (warn < 0)
-                                    {
-                                        await UserProfileLogic.AddWarningToUser(userReply);
-                                        await botClient.SendTextMessageAsync(MyChatId, $"Предупреждение(я) снято(ы) для {userReply}");
-                                    }
+                                    await UserProfileLogic.AddWarningToUser(userReply);
+                                    await botClient.SendTextMessageAsync(MyChatId, $"Предупреждение для {userReply}");
+                                }
+                                else if (messageText.StartsWith("/warnM"))
+                                {
+                                    //string userReply = update.Message.ReplyToMessage?.From.Username.Replace("@", "");
+                                    await UserProfileLogic.ReduceWarningToUser(userReply);
+                                    await botClient.SendTextMessageAsync(MyChatId, $"Предупреждение для {userReply} снято");
+
+                                }
+                                else if (messageText.StartsWith("/warnremove"))
+                                {
+                                    //string userReply = update.Message.ReplyToMessage?.From.Username.Replace("@", "");
+                                    await UserProfileLogic.RemoveWarningToUser(userReply);
+                                    await botClient.SendTextMessageAsync(MyChatId, $"Предупреждения {userReply} сняты");
                                 }
                             }
                             else
@@ -148,6 +132,10 @@ namespace PeaceDaBoll
 
                     if (isReceivingMessages == true)
                     {
+                        if (messageText.Contains("@PeaceDaBoll_Bot"))
+                        {
+                            messageText.Replace("@PeaceDaBoll_Bot", "");
+                        }
                         if (chatMember.Status == ChatMemberStatus.Member)
                         {
                             await BadwordsCheck.MessageCheck(update.Message, MyChatId, Bot);
@@ -155,15 +143,11 @@ namespace PeaceDaBoll
                         if (update.Type == UpdateType.Message)
                         {
                             string name = user.Username.Replace("@", "");
+                            await UserProfileLogic.RankUp(name);
                             if (ProfileExists(name)) //Обработка последней активности пользователя исходя из отправленных сообщений
                             {
                                 await UserProfileLogic.SetLastDate(name, DateTime.Now); //Изменение даты последней активности
                                 await UserProfileLogic.AddMessageCount(name); //Обновление кол-ва сообщений отправленных пользователем ++
-                                UserProfile profile = GetProfile(name);
-                                if (profile.quantityMessage > profile.quantityMessage * 1000)
-                                {
-                                    EditProfile(name, ProfileValueType.currentRank, (profile.currentRank++).ToString());
-                                }
                             }
                             else
                             {
@@ -181,26 +165,13 @@ namespace PeaceDaBoll
                             await Bot.SendTextMessageAsync(
                             chatId: MyChatId,
                             text:
-                            "Список команд для пользователей:\n" +
-                            "1. /roll - Генерирует случайное число от 0 до значения которое вы указали.\n" +
-                            "Пример: /roll 100 Вывод - 52\n" +
-                            "2. /voteban - Начинает процесс голосования против участника чата. Против администратора создавать голосование нельзя.\n" +
-                            "Пример: /voteban должен быть ответом на сообщение пользователя.\n" +
-                            "Примечание: нельзя начинать по отношению к админам.\n" +
-                            "3. /vote - Голосование за бан в текущий момент голосования.\n" +
-                            "4. /profile - Показывает ваш профиль или профиль другого пользователя.\n" +
-                            "Пример: /profile показывает ваш профиль. /profile [имя_пользователя] - показывает профиль другого пользователя.\n" +
-                            "\n" +
-                            "Список команд для админов:\n" +
-                            "1. /editname - Изменяет второй ник пользователя в профиле.\n" +
-                            "Пример: /editname [новый_ник] должен быть ответом сообщение пользователя чей ник нужно изменить\n" +
-                            "2. /point - добавляет или отнимает кол-во очков на счету пользователя.\n" +
-                            "Пример: /point [число] прибавляет введенное кол-во очков. /point [-число] отнимает введенное кол-во очков у пользователя, должно быть ответом на сообщение пользователя чьё кол-во очков нужно изменить.\n" +
-                            "3. /warn - Добавляет или отнимает предупреждения у пользователя\n" +
-                            "Пример: /warn [число] добавляет, /warn [-число] убавляет.\n" +
-                            "4. /badword - Добавляет слово в черный список и после удаляется при появлении в чате.\n" +
-                            "Пример: /badword [слово]\n" +
-                            "Для поддержки в развитии проекта: \r\nСБЕР 4274 3200 5645 0680 \r\nВсе полученные средства уйдут на развитие проекта.",
+                            "Список команд:\n1. /roll - Генерирует случайное число в диапазоне от 0 до указанного числа. " +
+                            "Пример: /roll 100\n2. /voteban - Создаёт голосование за бан пользователя(нельзя создать против администратора)\n" +
+                            "3. /vote - проголосовать за бан, когда голосование открыто\n\n" +
+                            "Для поддержки в развитии проекта: СБЕР 4274 3200 5645 0680. Все полученные средства уйдут на развитие проекта.\n\n" +
+                            "Для админов: \n" +
+                            "/badword [слово] - вписать слово в список запрещённых\n" +
+                            "/votebancancel - отменить голосование за бан",
                             cancellationToken: cancellationToken);
                         }
                         else if (messageText.StartsWith("/roll") && int.TryParse(Regex.Match(messageText, "[0-9]+$").Value, out int value))
@@ -254,20 +225,20 @@ namespace PeaceDaBoll
                                     );
                             }
                         }
+
                     }
                 }
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                //Invoke((MethodInvoker)(() => Chat_TextBox.Text += $"[{DateTime.Now:G}] Ошибка: {ex}"));
+                Invoke((MethodInvoker)(() => Chat_TextBox.Text += $"[{DateTime.Now:G}] Ошибка: {ex}"));
                 //Chat_TextBox.Text += $"Ошибка: {ex}" + Environment.NewLine;
-                await LoggingLogic.LoggingWriter($"Error: {exception.Message}\nStackTrace: {exception.StackTrace}\nSource: {exception.Source}");
             }
         }
 
         private Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
         {
-            LoggingLogic.LoggingWriter($"Error: {exception.Message}\nStackTrace: {exception.StackTrace}\nSource: {exception.Source}");
+            MessageBox.Show($"Error: {exception.Message}\nStackTrace: {exception.StackTrace}\nSource: {exception.Source}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return Task.CompletedTask;
         }
 
@@ -291,32 +262,33 @@ namespace PeaceDaBoll
         bool isStartProcess = false;
         DateTime lastReceive = DateTime.Now;
 
-        private void button2_Click(object sender, EventArgs e) => ((Button)sender).Text = (isStartProcess = isStartProcess ? false : true).ToString();
+        private void button2_Click(object sender, EventArgs e) => isStartProcess = isStartProcess ? false : true;
 
         private async void Update()
         {
             while (true)
             {
-                if (isStartProcess && isReceivingMessages)
+                if (isStartProcess)
                 {
-                    label1.Text = "Прошедшее время: " + (Math.Round((DateTime.Now.TimeOfDay.TotalSeconds - lastReceive.TimeOfDay.TotalSeconds), 0));
-                    if (DateTime.Now.TimeOfDay.TotalSeconds - lastReceive.TimeOfDay.TotalSeconds > 2600) //28800
+                    if (DateTime.Now.TimeOfDay.TotalSeconds - lastReceive.TimeOfDay.TotalSeconds > 28800)
                     {
                         lastReceive = DateTime.Now;
 
                         await Bot.SendTextMessageAsync(
                         chatId: MyChatId,
-                        text: textBox2.Text,
+                        text:
+                        "Список команд:\n1. /roll - Генерирует случайное число в диапазоне от 0 до указанного числа. " +
+                        "Пример: /roll 100\n2. /voteban - Создаёт голосование за бан пользователя(нельзя создать против администратора)\n" +
+                        "3. /vote - проголосовать за бан, когда голосование открыто\n\n" +
+                        "Для поддержки в развитии проекта: СБЕР 4274 3200 5645 0680. Все полученные средства уйдут на развитие проекта.\n\n" +
+                        "Для админов: \n" +
+                        "/badword [слово] - вписать слово в список запрещённых\n" +
+                        "/votebancancel - отменить голосование за бан",
                         cancellationToken: cts.Token);
                     }
                 }
                 await Task.Delay(1000);
             }
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

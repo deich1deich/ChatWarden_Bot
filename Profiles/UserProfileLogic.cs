@@ -4,11 +4,22 @@ namespace PeaceDaBoll.Profiles
 {
     public class UserProfileLogic
     {
-        public static readonly string[] Ranks = ["Рядовой", "Ефрейтор", "Сержант", "Старшина", "Прапорщик", "Лейтенант", "Капитан", "Майор", "Полковник", "Генерал майор", "Генерал лейтенант", "Генерал полковник", "Генерал армии"]; //Ранги
+        public static readonly List<string> Ranks = ["Рядовой", "Ефрейтор", "Сержант", "Старшина", "Прапорщик", "Лейтенант", "Капитан", "Майор", "Полковник", "Генерал майор", "Генерал лейтенант", "Генерал полковник", "Генерал армии"]; //Ранги
+        public static readonly List<int> Required = [100, 500, 1200, 2000, 2500, 5000, 6000, 9000, 12000, 14000, 20000, 25000, 32000, 40000, 50000];
         public static async Task AddUser(string name) //Создание профиля пользователя
         {
             UserProfile user = new();
             AddNewProfile(user, name);
+        }
+        public static async Task RankUp(string name)
+        {
+            var user = GetProfile(name);
+            int q = 0;
+            if (Required.Contains(user.quantityMessage))
+            { 
+                q = Required.IndexOf(user.quantityMessage);
+                await GiveRank(name, q + 1);
+            };
         }
         public static async Task AddMessageCount(string name) => EditProfile(name, ProfileValueType.quantityMessage, Convert.ToString(GetProfile(name).quantityMessage + 1));
         //Добавить предупреждение у пользователя
@@ -45,54 +56,6 @@ namespace PeaceDaBoll.Profiles
             $"Первая активность: {user.FirstActivity}" + Environment.NewLine +
             $"Баллы на счету: {user.quantityUserPoints}";
             return text;
-        }
-
-        public static string GetRank(int messages)
-        {
-            string rank = "";
-            if (messages <= 100)
-                rank = "рядовой";
-            else if (messages >= 101 && messages <= 1000)
-                rank = "рядовой";
-            else if (messages >= 101 && messages <= 10040)
-                rank = "рядовой";
-            else if (messages >= 101 && messages <= 10500)
-                rank = "рядовой";
-            else if (messages >= 101 && messages <= 10300)
-                rank = "рядовой";
-            else if (messages >= 101 && messages <= 10100)
-                rank = "рядовой";
-            else if (messages >= 101 && messages <= 1000)
-                rank = "рядовой";
-            else if (messages >= 101 && messages <= 1000)
-                rank = "рядовой";
-            else if (messages >= 101 && messages <= 1000)
-                rank = "рядовой";
-            else if (messages >= 101 && messages <= 1000)
-                rank = "рядовой";
-            else if (messages >= 101 && messages <= 1000)
-                rank = "рядовой";
-            else if (messages >= 101 && messages <= 1000)
-                rank = "рядовой";
-            else if (messages >= 101 && messages <= 1000)
-                rank = "рядовой";
-            else if (messages >= 101 && messages <= 1000)
-                rank = "рядовой";
-            else if (messages >= 101 && messages <= 1000)
-                rank = "рядовой";
-            else if (messages >= 101 && messages <= 1000)
-                rank = "рядовой";
-            else if (messages >= 101 && messages <= 1000)
-                rank = "рядовой";
-            else if (messages >= 101 && messages <= 1000)
-                rank = "рядовой";
-            else if (messages >= 101 && messages <= 1000)
-                rank = "рядовой";
-            else if (messages >= 101 && messages <= 1000)
-                rank = "рядовой";
-            else if (messages >= 101 && messages <= 1000)
-                rank = "рядовой";
-            return rank;
         }
     }
 }
