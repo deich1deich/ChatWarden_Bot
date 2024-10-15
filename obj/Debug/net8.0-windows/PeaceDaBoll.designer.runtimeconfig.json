@@ -12,8 +12,8 @@
       }
     ],
     "additionalProbingPaths": [
-      "C:\\Users\\Fylax\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\Fylax\\.nuget\\packages"
+      "C:\\Users\\Deich\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Deich\\.nuget\\packages"
     ],
     "configProperties": {
       "System.Runtime.Serialization.EnableUnsafeBinaryFormatterSerialization": true,
