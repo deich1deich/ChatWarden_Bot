@@ -303,7 +303,7 @@ namespace PeaceDaBoll
                 if (isStartProcess && isReceivingMessages)
                 {
                     label1.Text = "Прошедшее время: " + (Math.Round((DateTime.Now.TimeOfDay.TotalSeconds - lastReceive.TimeOfDay.TotalSeconds), 0));
-                    if (DateTime.Now.TimeOfDay.TotalSeconds - lastReceive.TimeOfDay.TotalSeconds > 2600) //28800
+                    if (DateTime.Now.TimeOfDay.TotalSeconds - lastReceive.TimeOfDay.TotalSeconds > 28800) // 28800 - 8ч  |  2400 - 40мин
                     {
                         lastReceive = DateTime.Now;
 
@@ -315,11 +315,6 @@ namespace PeaceDaBoll
                 }
                 await Task.Delay(1000);
             }
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -336,97 +331,16 @@ namespace PeaceDaBoll
                 this.Hide();
                 notifyIcon1.Visible = true;
             }
-            else if (FormWindowState.Normal == this.WindowState)
-            { notifyIcon1.Visible = false; }
+            else if (this.WindowState == FormWindowState.Normal)
+            {
+                notifyIcon1.Visible = false;
+            }
         }
-        //private void notifyIcon1_Click(object sender, EventArgs e)
-        //{
-        //    if (this.WindowState == FormWindowState.Minimized)
-        //    {
-        //        this.WindowState = FormWindowState.Normal;
-        //        this.ShowInTaskbar = true;
-        //        notifyIcon1.Visible = false;
-        //    }
-        //}
+        private void развернутьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Show();
+            notifyIcon1.Visible = false;
+            WindowState = FormWindowState.Normal;
+        }
     }
 }
-//else if (messageText.StartsWith("/create"))
-//{
-//    //string username = Regex.Match(update.Message.Text, @"(?<=/profile )[A-Za-z0-9]+").Value;
-//    string username = update.Message.From.Username.Replace("@", "");
-//    if (!ProfileExists(username))
-//    {
-//        UserProfileLogic.AddUser(username);
-//        await botClient.SendTextMessageAsync(
-//            MyChatId,
-//            $"Профиль {username} создан!"
-//            );
-//    }
-//}
-
-//else if (messageText.StartsWith("/create") && !ProfileExists(update.Message.From.Username.Replace("@", "")))
-//{
-//    CustomLogicProfiles.AddNewProfile(, update.Message.From.Username.Replace("@", ""));
-//}
-//else if(update.Type == UpdateType.ChatMember)
-//{
-//    MessageBox.Show("update with chatMember");
-//    if(update.ChatMember.NewChatMember.Status == ChatMemberStatus.Member)
-//    {
-//        MessageBox.Show("update with newchatMember");
-//        await Bot.SendTextMessageAsync(
-//            chatId: MyChatId,
-//            text: $"{update.ChatMember.NewChatMember.User.Username}, ����� ����������!",
-//            cancellationToken: cancellationToken);
-//    }
-//    else if(update.ChatMember.OldChatMember.Status == ChatMemberStatus.Left)
-//    {
-//        MessageBox.Show("update with leftChatMember");
-//        await Bot.SendTextMessageAsync(
-//            chatId: MyChatId,
-//            text: "� �� �����������.",
-//            cancellationToken: cancellationToken);
-//    } 
-//}
-
-//switch (ProfileExists(update.Message.ReplyToMessage?.From.Username))
-//{
-//    case true:
-//        profile = UserProfileLogic.ViewProfile(update.Message.ReplyToMessage?.From.Username);
-//        await botClient.SendTextMessageAsync(
-//            MyChatId,
-//            profile
-//            );
-//        return;
-//    case false:
-//        await botClient.SendTextMessageAsync(
-//            MyChatId,
-//            "У данного пользователя не существует профиля. Создание профиля..."
-//            );
-//        await UserProfileLogic.AddUser(update.Message.ReplyToMessage?.From.Username);
-//        profile = UserProfileLogic.ViewProfile(update.Message.ReplyToMessage?.From.Username);
-//        await botClient.SendTextMessageAsync(
-//            MyChatId,
-//            profile
-//            );
-//        return;
-//}
-
-//if (messageText.StartsWith("/addpoint"))
-//{
-//    string userReplay = update.Message.ReplyToMessage?.From.Username.Replace("@", "");
-//    int value = Convert.ToInt32(Regex.Match(messageText, "(?<=/addpoint )[0-9]+").Value);
-//    if (value != 0)
-//    {
-//        UserProfileLogic.AddPointsToUser(userReplay, value);
-//    }
-//}
-//else if (messageText.StartsWith("/reducepoint"))//Эта часть кода просто ебучий ужас
-//{
-//    string userReplay = update.Message.ReplyToMessage?.From.Username.Replace("@", "");
-//    int value = Convert.ToInt32(Regex.Match(messageText, "(?<=/reducepoint )[0-9]+").Value);
-//    if (value != 0)
-//    {
-//        UserProfileLogic.TakePointsFromUser(userReplay, value);
-//    }
-//}
