@@ -41,7 +41,7 @@ namespace PeaceDaBoll.Profiles.ProfileLogicXYI
             UserProfile profile = new UserProfile()
             {
                 Username = Username,
-                CustomName = Regex.Match(text, @$"(?<={Username} CustomName: <)[A-Za-z0-9]+(?=>)").Value,
+                CustomName = Regex.Match(text, @$"(?<={Username} CustomName: <)[A-Za-zА-Яа-я0-9]+(?=>)").Value,
                 currentRank = Convert.ToInt32(Regex.Match(text, @$"(?<={Username} currentRank: <)[0-9]+(?=>)").Value),
                 quantityMessage = Convert.ToInt32(Regex.Match(text, @$"(?<={Username} quantityMessage: <)[0-9]+(?=>)").Value),
                 FirstActivity = Regex.Match(text, @$"(?<={Username} FirstActivity: <)[0-9]+\.[0-9]+\.[0-9]{{4}} [0-9]+:[0-9]+:[0-9]+(?=>)").Value, // 10.10.2024 16:33:33

@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             Chat_TextBox = new TextBox();
             button1 = new Button();
             TextMessage_TextBox = new TextBox();
@@ -35,6 +37,10 @@
             textBox2 = new TextBox();
             button2 = new Button();
             label1 = new Label();
+            notifyIcon1 = new NotifyIcon(components);
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            развернутьToolStripMenuItem = new ToolStripMenuItem();
+            contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // Chat_TextBox
@@ -76,7 +82,7 @@
             textBox2.Location = new Point(606, 25);
             textBox2.Multiline = true;
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(462, 206);
+            textBox2.Size = new Size(462, 207);
             textBox2.TabIndex = 4;
             textBox2.Text = "Для поддержки в развитии проекта: \r\nСБЕР 4274 3200 5645 0680 \r\nВсе полученные средства уйдут на развитие проекта.";
             // 
@@ -84,7 +90,7 @@
             // 
             button2.Location = new Point(952, 237);
             button2.Name = "button2";
-            button2.Size = new Size(116, 52);
+            button2.Size = new Size(117, 52);
             button2.TabIndex = 5;
             button2.Text = "Применить";
             button2.UseVisualStyleBackColor = true;
@@ -98,7 +104,27 @@
             label1.Size = new Size(149, 20);
             label1.TabIndex = 6;
             label1.Text = "Прошедшее время: ";
-            label1.Click += label1_Click;
+            // 
+            // notifyIcon1
+            // 
+            notifyIcon1.ContextMenuStrip = contextMenuStrip1;
+            notifyIcon1.Icon = (Icon)resources.GetObject("notifyIcon1.Icon");
+            notifyIcon1.Text = "notifyIcon1";
+            notifyIcon1.MouseDoubleClick += notifyIcon1_MouseDoubleClick;
+            // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.ImageScalingSize = new Size(20, 20);
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { развернутьToolStripMenuItem });
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(211, 56);
+            // 
+            // развернутьToolStripMenuItem
+            // 
+            развернутьToolStripMenuItem.Name = "развернутьToolStripMenuItem";
+            развернутьToolStripMenuItem.Size = new Size(210, 24);
+            развернутьToolStripMenuItem.Text = "Развернуть";
+            развернутьToolStripMenuItem.Click += развернутьToolStripMenuItem_Click;
             // 
             // Form1
             // 
@@ -116,6 +142,8 @@
             Text = "Form1";
             FormClosing += MainForm_FormClosing;
             Load += MainForm_Load;
+            Resize += Form1_Resize;
+            contextMenuStrip1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -129,5 +157,8 @@
         private TextBox textBox2;
         private Button button2;
         private Label label1;
+        private NotifyIcon notifyIcon1;
+        private ContextMenuStrip contextMenuStrip1;
+        private ToolStripMenuItem развернутьToolStripMenuItem;
     }
 }

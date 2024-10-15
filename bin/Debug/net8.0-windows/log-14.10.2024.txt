@@ -1,0 +1,109 @@
+14.10.2024 14:12:03: Ршырц
+14.10.2024 14:12:04: Цоциийдср
+14.10.2024 14:12:06: Рымфгыр
+14.10.2024 14:12:07: Иышвпмц
+14.10.2024 14:12:09: Рфмцргу
+14.10.2024 14:12:14: Олег
+14.10.2024 14:18:45: @fylax224luv логширование сделал
+14.10.2024 14:18:47: Проверь
+14.10.2024 14:50:18: /help
+14.10.2024 14:51:09: /help
+14.10.2024 14:51:56: /help
+14.10.2024 15:09:17: (@IamDeich (5201292150)) Нужно сократить ремувы предупреждений до: 
+/warn 1 - добавил одно предупреждение
+/warn -2 - отнял 2 предупреждения
+14.10.2024 15:09:17: (@IamDeich (5201292150)) И тут резко все предупреждение сократятся до 1 команды
+14.10.2024 15:09:18: (@IamDeich (5201292150)) @BlastorChan
+14.10.2024 15:09:18: (@IamDeich (5201292150)) @BlastorChan
+14.10.2024 15:10:32: (@BlastorChan (1107316355)) Не логирует отправку изображения
+14.10.2024 15:13:56: (@BlastorChan (1107316355)) отправил изображение
+14.10.2024 15:14:05: (@BlastorChan (1107316355)) отправил аудио длиной 1
+14.10.2024 15:15:00: (@fylax224luv (815210840)) /roll@PeaceDaBoll_Bot
+14.10.2024 15:15:12: (@fylax224luv (815210840)) /off@PeaceDaBoll_Bot
+14.10.2024 15:15:16: (@fylax224luv (815210840)) Oidkdkd h
+14.10.2024 15:15:17: (@fylax224luv (815210840)) Ndhxkd
+14.10.2024 15:15:18: (@fylax224luv (815210840)) Jejdc
+14.10.2024 15:15:18: (@fylax224luv (815210840)) Jejcof
+14.10.2024 15:15:20: (@fylax224luv (815210840)) Jejdkd
+14.10.2024 15:15:24: (@fylax224luv (815210840)) /on@PeaceDaBoll_Bot
+14.10.2024 15:15:27: (@fylax224luv (815210840)) /badword@PeaceDaBoll_Bot
+14.10.2024 15:15:34: (@fylax224luv (815210840)) /profile@PeaceDaBoll_Bot
+14.10.2024 15:16:04: (@fylax224luv (815210840)) /help@PeaceDaBoll_Bot
+14.10.2024 15:17:02: (@fylax224luv (815210840)) /badword@PeaceDaBoll_Bot
+14.10.2024 15:17:52: (@fylax224luv (815210840)) /profile@PeaceDaBoll_Bot
+14.10.2024 15:17:55: (@fylax224luv (815210840)) /badword@PeaceDaBoll_Bot
+14.10.2024 15:18:16: (@fylax224luv (815210840)) /badwordпенис
+14.10.2024 15:18:34: (@fylax224luv (815210840)) /badword пенсил
+14.10.2024 15:19:12: (@BlastorChan (1107316355)) /badword анал
+14.10.2024 15:19:36: (@BlastorChan (1107316355)) /badword анальныйдемон
+14.10.2024 15:35:32: (@BlastorChan (1107316355)) Может так и оставим?
+14.10.2024 15:35:34: (@BlastorChan (1107316355)) Мне кажется и так норм
+14.10.2024 15:35:36: (@BlastorChan (1107316355)) /help@PeaceDaBoll_Bot
+14.10.2024 15:36:32: (@BlastorChan (1107316355)) /help@PeaceDaBoll_Bot
+14.10.2024 15:37:00: (@BlastorChan (1107316355)) /help@PeaceDaBoll_Bot
+14.10.2024 15:37:18: (@BlastorChan (1107316355)) /help@PeaceDaBoll_Bot
+14.10.2024 15:37:32: (@BlastorChan (1107316355)) /warn 1
+14.10.2024 15:37:54: (@BlastorChan (1107316355)) /profile IamDeich
+14.10.2024 15:40:21: (@BlastorChan (1107316355)) /warn
+14.10.2024 15:40:21: Error: The input string '' was not in a correct format.
+StackTrace:    at System.Number.ThrowFormatException[TChar](ReadOnlySpan`1 value)
+   at System.Convert.ToInt32(String value)
+   at PeaceDaBoll.Form1.HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken) in C:\Users\dev\Source\Repos\ChatWarden_Bot\Form1.cs:line 122
+Source: System.Private.CoreLib
+14.10.2024 15:40:48: (@IamDeich (5201292150)) /warn 466
+14.10.2024 15:40:52: (@IamDeich (5201292150)) S00qa
+14.10.2024 15:40:57: (@IamDeich (5201292150)) U r gay
+14.10.2024 15:46:39: (@BlastorChan (1107316355)) /profile
+14.10.2024 15:50:48: Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+StackTrace:    at Telegram.Bot.TelegramBotClient.MakeRequestAsync[TResponse](IRequest`1 request, CancellationToken cancellationToken)
+   at Telegram.Bot.Polling.DefaultUpdateReceiver.ReceiveAsync(IUpdateHandler updateHandler, CancellationToken cancellationToken)
+Source: Telegram.Bot
+14.10.2024 15:50:51: Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+StackTrace:    at Telegram.Bot.TelegramBotClient.MakeRequestAsync[TResponse](IRequest`1 request, CancellationToken cancellationToken)
+   at Telegram.Bot.Polling.DefaultUpdateReceiver.ReceiveAsync(IUpdateHandler updateHandler, CancellationToken cancellationToken)
+Source: Telegram.Bot
+14.10.2024 15:50:51: Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+StackTrace:    at Telegram.Bot.TelegramBotClient.MakeRequestAsync[TResponse](IRequest`1 request, CancellationToken cancellationToken)
+   at Telegram.Bot.Polling.DefaultUpdateReceiver.ReceiveAsync(IUpdateHandler updateHandler, CancellationToken cancellationToken)
+Source: Telegram.Bot
+14.10.2024 15:50:54: Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+StackTrace:    at Telegram.Bot.TelegramBotClient.MakeRequestAsync[TResponse](IRequest`1 request, CancellationToken cancellationToken)
+   at Telegram.Bot.Polling.DefaultUpdateReceiver.ReceiveAsync(IUpdateHandler updateHandler, CancellationToken cancellationToken)
+Source: Telegram.Bot
+14.10.2024 15:50:55: Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+StackTrace:    at Telegram.Bot.TelegramBotClient.MakeRequestAsync[TResponse](IRequest`1 request, CancellationToken cancellationToken)
+   at Telegram.Bot.Polling.DefaultUpdateReceiver.ReceiveAsync(IUpdateHandler updateHandler, CancellationToken cancellationToken)
+Source: Telegram.Bot
+14.10.2024 15:50:58: Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+StackTrace:    at Telegram.Bot.TelegramBotClient.MakeRequestAsync[TResponse](IRequest`1 request, CancellationToken cancellationToken)
+   at Telegram.Bot.Polling.DefaultUpdateReceiver.ReceiveAsync(IUpdateHandler updateHandler, CancellationToken cancellationToken)
+Source: Telegram.Bot
+14.10.2024 15:50:58: Error: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+StackTrace:    at Telegram.Bot.TelegramBotClient.MakeRequestAsync[TResponse](IRequest`1 request, CancellationToken cancellationToken)
+   at Telegram.Bot.Polling.DefaultUpdateReceiver.ReceiveAsync(IUpdateHandler updateHandler, CancellationToken cancellationToken)
+Source: Telegram.Bot
+14.10.2024 15:52:12: (@BlastorChan (1107316355)) /profile
+14.10.2024 16:05:24: (@IamDeich (5201292150)) Список команд:
+1. /roll - Генерирует случайное число в диапазоне от 0 до указанного числа. Пример: /roll 100
+Для поддержки в развитии проекта: СБЕР 4274 3200 5645 0680. Все полученные средства уйдут на развитие проекта.
+14.10.2024 16:05:24: (@IamDeich (5201292150)) Для поддержки в развитии проекта: 
+СБЕР 4274 3200 5645 0680 
+Все полученные средства уйдут на развитие проекта.
+14.10.2024 16:05:37: (@BlastorChan (1107316355)) /help
+14.10.2024 16:06:38: (@BlastorChan (1107316355)) /help
+14.10.2024 16:43:56: (@BlastorChan (1107316355)) /profile
+14.10.2024 16:44:40: (@BlastorChan (1107316355)) /profile
+14.10.2024 16:44:42: (@BlastorChan (1107316355)) /profile
+14.10.2024 16:48:24: (@IamDeich (5201292150)) @fylax224luv
+14.10.2024 16:48:30: (@IamDeich (5201292150)) отправил аудио длиной 3 сек
+14.10.2024 16:48:36: (@IamDeich (5201292150)) отправил аудио длиной 4 сек
+14.10.2024 16:51:05: (@fylax224luv (815210840)) Дома додумаю, организую
+14.10.2024 16:51:19: (@BlastorChan (1107316355)) s00qa
+14.10.2024 16:51:24: (@BlastorChan (1107316355)) я сегодня хостить хотел
+14.10.2024 16:51:27: (@BlastorChan (1107316355)) Двоечники вонючие
+14.10.2024 16:52:32: (@fylax224luv (815210840)) 😔👉👈
+14.10.2024 19:36:36: (@BlastorChan (1107316355)) /profile
+14.10.2024 19:36:57: (@BlastorChan (1107316355)) adwad
+14.10.2024 19:36:58: (@BlastorChan (1107316355)) awawww
+14.10.2024 19:36:59: (@BlastorChan (1107316355)) /profile
+14.10.2024 19:37:06: (@fylax224luv (815210840)) Всё.

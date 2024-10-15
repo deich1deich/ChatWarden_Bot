@@ -1,0 +1,163 @@
+15.10.2024 21:54:01: (@cerberuss09 (1337835601)) /profile
+15.10.2024 21:54:01: (@IamDeich (5201292150)) Всё сломалось, короче
+15.10.2024 21:54:02: (@IamDeich (5201292150)) Сегодня переписываться будет
+15.10.2024 21:54:03: (@cerberuss09 (1337835601)) привет
+15.10.2024 21:54:51: (@MyKamilla (1149468500)) О как
+15.10.2024 21:55:20: (@cerberuss09 (1337835601)) привет
+15.10.2024 21:55:26: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 21:55:38: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 21:55:40: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 21:55:41: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 21:55:42: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 21:55:46: (@cerberuss09 (1337835601)) пук
+15.10.2024 21:55:48: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 21:56:46: (@cerberuss09 (1337835601)) апап
+15.10.2024 21:56:48: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:03:42: Error: Exception during making request
+StackTrace:    at Telegram.Bot.TelegramBotClient.<MakeRequestAsync>g__SendRequestAsync|21_0[TResponse](HttpClient httpClient, HttpRequestMessage httpRequest, CancellationToken cancellationToken)
+   at Telegram.Bot.TelegramBotClient.MakeRequestAsync[TResponse](IRequest`1 request, CancellationToken cancellationToken)
+   at Telegram.Bot.Polling.DefaultUpdateReceiver.ReceiveAsync(IUpdateHandler updateHandler, CancellationToken cancellationToken)
+Source: Telegram.Bot
+15.10.2024 22:03:43: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:03:51: (@fylax224luv (815210840)) /warn 1
+15.10.2024 22:04:01: (@fylax224luv (815210840)) /warn -1
+15.10.2024 22:04:05: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:04:33: (@fylax224luv (815210840)) /warn -2
+15.10.2024 22:04:37: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:06:41: (@fylax224luv (815210840)) /warn -3
+15.10.2024 22:06:50: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:06:54: (@fylax224luv (815210840)) /warn
+15.10.2024 22:08:28: (@fylax224luv (815210840)) /warn -4
+15.10.2024 22:08:32: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:09:26: (@fylax224luv (815210840)) /off
+15.10.2024 22:09:32: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:09:39: (@fylax224luv (815210840)) /warn 1
+15.10.2024 22:09:50: (@fylax224luv (815210840)) /on
+15.10.2024 22:10:02: (@fylax224luv (815210840)) /profile PeaceDaBoll_Bot
+15.10.2024 22:14:25: (@cerberuss09 (1337835601)) https://youtube.com/shorts/FazoVdnLbaI?si=iSke7mqIfsEu4Sx3
+15.10.2024 22:14:28: (@cerberuss09 (1337835601)) Синий экран
+15.10.2024 22:14:30: (@cerberuss09 (1337835601)) Опять
+15.10.2024 22:14:33: (@fylax224luv (815210840)) /point 1000
+15.10.2024 22:14:35: (@cerberuss09 (1337835601)) С Рубика разебало
+15.10.2024 22:14:37: (@fylax224luv (815210840)) Это пизда
+15.10.2024 22:14:43: (@fylax224luv (815210840)) Что оно пишет?
+15.10.2024 22:14:59: (@cerberuss09 (1337835601)) отправил аудио длиной 6 сек
+15.10.2024 22:15:20: (@cerberuss09 (1337835601)) отправил аудио длиной 10 сек
+15.10.2024 22:16:34: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:17:36: (@cerberuss09 (1337835601)) Пишу
+15.10.2024 22:17:39: (@fylax224luv (815210840)) /profile @cerberuss09
+15.10.2024 22:17:44: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:18:59: (@cerberuss09 (1337835601)) Мама
+15.10.2024 22:19:00: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:19:19: (@cerberuss09 (1337835601)) Гол
+15.10.2024 22:19:20: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:19:39: (@cerberuss09 (1337835601)) Гол
+15.10.2024 22:19:40: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:19:58: (@cerberuss09 (1337835601)) Пизда
+15.10.2024 22:19:59: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:20:12: (@cerberuss09 (1337835601)) ТОО
+15.10.2024 22:20:13: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:20:30: (@cerberuss09 (1337835601)) Пром
+15.10.2024 22:20:31: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:20:39: (@cerberuss09 (1337835601)) Жесть
+15.10.2024 22:21:08: (@cerberuss09 (1337835601)) Пор
+15.10.2024 22:21:09: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:21:43: (@cerberuss09 (1337835601)) Лимбо
+15.10.2024 22:21:45: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:22:00: (@cerberuss09 (1337835601)) Омар
+15.10.2024 22:22:01: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:22:22: (@cerberuss09 (1337835601)) Кирпич
+15.10.2024 22:22:23: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:22:52: (@cerberuss09 (1337835601)) Самсунг
+15.10.2024 22:24:36: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:24:43: (@cerberuss09 (1337835601)) Ес
+15.10.2024 22:25:07: (@cerberuss09 (1337835601)) Блюр
+15.10.2024 22:25:08: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:25:29: (@cerberuss09 (1337835601)) Ромашка
+15.10.2024 22:25:31: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:25:42: (@cerberuss09 (1337835601)) Генерал
+15.10.2024 22:25:43: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:26:03: (@cerberuss09 (1337835601)) Оо
+15.10.2024 22:26:04: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:26:50: (@fylax224luv (815210840)) /editname Романыч
+15.10.2024 22:26:54: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:29:11: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:29:44: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:32:53: (@fylax224luv (815210840)) /editname Сысысыч
+15.10.2024 22:33:00: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:33:44: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:35:08: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:35:55: (@fylax224luv (815210840)) /editname Сосисы4
+15.10.2024 22:35:58: (@fylax224luv (815210840)) /profile cerberuss09
+15.10.2024 22:39:55: (@cerberuss09 (1337835601)) /roll 2000000
+15.10.2024 22:40:20: (@cerberuss09 (1337835601)) /roll 2000000000000000
+15.10.2024 22:41:10: (@fylax224luv (815210840)) /roll 2147483648
+15.10.2024 22:41:17: (@fylax224luv (815210840)) /roll 2147483647
+15.10.2024 22:41:17: Error: 'minValue' cannot be greater than maxValue. (Parameter 'minValue')
+StackTrace:    at System.Random.ThrowMinMaxValueSwapped()
+   at System.Random.Next(Int32 minValue, Int32 maxValue)
+   at PeaceDaBoll.Form1.HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+Source: System.Private.CoreLib
+15.10.2024 22:41:24: (@fylax224luv (815210840)) /roll 2147483647
+15.10.2024 22:41:24: Error: 'minValue' cannot be greater than maxValue. (Parameter 'minValue')
+StackTrace:    at System.Random.ThrowMinMaxValueSwapped()
+   at System.Random.Next(Int32 minValue, Int32 maxValue)
+   at PeaceDaBoll.Form1.HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+Source: System.Private.CoreLib
+15.10.2024 22:41:40: Error: Object reference not set to an instance of an object.
+StackTrace:    at PeaceDaBoll.Form1.HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+Source: PeaceDaBoll
+15.10.2024 22:42:07: (@fylax224luv (815210840)) /roll 2147483646
+15.10.2024 22:42:14: (@fylax224luv (815210840)) /roll 2147483647
+15.10.2024 22:42:14: Error: 'minValue' cannot be greater than maxValue. (Parameter 'minValue')
+StackTrace:    at System.Random.ThrowMinMaxValueSwapped()
+   at System.Random.Next(Int32 minValue, Int32 maxValue)
+   at PeaceDaBoll.Form1.HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+Source: System.Private.CoreLib
+15.10.2024 22:45:17: (@fylax224luv (815210840)) /roll 2147483647
+15.10.2024 22:45:20: (@fylax224luv (815210840)) /roll -3112
+15.10.2024 22:45:53: (@fylax224luv (815210840)) /roll -3132
+15.10.2024 22:46:23: (@fylax224luv (815210840)) /roll 0
+15.10.2024 22:54:49: (@fylax224luv (815210840)) /voteban
+15.10.2024 22:54:51: (@fylax224luv (815210840)) /vote@PeaceDaBoll_Bot
+15.10.2024 22:55:08: (@cerberuss09 (1337835601)) /vote@PeaceDaBoll_Bot
+15.10.2024 22:56:03: (@fylax224luv (815210840)) /cancelvoteban
+15.10.2024 22:59:27: (@fylax224luv (815210840)) /badword хуйкинс
+15.10.2024 23:00:54: (@fylax224luv (815210840)) /badword хуйкинс
+15.10.2024 23:05:05: (@fylax224luv (815210840)) /badword хуйкинc
+15.10.2024 23:05:05: Error: Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\'
+StackTrace:    at Telegram.Bot.TelegramBotClient.MakeRequestAsync[TResponse](IRequest`1 request, CancellationToken cancellationToken)
+   at Telegram.Bot.TelegramBotClientExtensions.SendTextMessageAsync(ITelegramBotClient botClient, ChatId chatId, String text, Nullable`1 messageThreadId, Nullable`1 parseMode, IEnumerable`1 entities, Nullable`1 disableWebPagePreview, Nullable`1 disableNotification, Nullable`1 protectContent, Nullable`1 replyToMessageId, Nullable`1 allowSendingWithoutReply, IReplyMarkup replyMarkup, CancellationToken cancellationToken)
+   at PeaceDaBoll.Messages.BadwordsCheck.EnterBadword(Message message, ChatMember chatMember, String MyChatId, TelegramBotClient Bot)
+   at PeaceDaBoll.Form1.HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+Source: Telegram.Bot
+15.10.2024 23:07:16: (@fylax224luv (815210840)) /badword пизда
+15.10.2024 23:07:16: Error: Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\'
+StackTrace:    at Telegram.Bot.TelegramBotClient.MakeRequestAsync[TResponse](IRequest`1 request, CancellationToken cancellationToken)
+   at Telegram.Bot.TelegramBotClientExtensions.SendTextMessageAsync(ITelegramBotClient botClient, ChatId chatId, String text, Nullable`1 messageThreadId, Nullable`1 parseMode, IEnumerable`1 entities, Nullable`1 disableWebPagePreview, Nullable`1 disableNotification, Nullable`1 protectContent, Nullable`1 replyToMessageId, Nullable`1 allowSendingWithoutReply, IReplyMarkup replyMarkup, CancellationToken cancellationToken)
+   at PeaceDaBoll.Messages.BadwordsCheck.EnterBadword(Message message, ChatMember chatMember, String MyChatId, TelegramBotClient Bot)
+   at PeaceDaBoll.Form1.HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+Source: Telegram.Bot
+15.10.2024 23:12:19: (@fylax224luv (815210840)) /badword 4312
+15.10.2024 23:12:19: Error: Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\'
+StackTrace:    at Telegram.Bot.TelegramBotClient.MakeRequestAsync[TResponse](IRequest`1 request, CancellationToken cancellationToken)
+   at Telegram.Bot.TelegramBotClientExtensions.SendTextMessageAsync(ITelegramBotClient botClient, ChatId chatId, String text, Nullable`1 messageThreadId, Nullable`1 parseMode, IEnumerable`1 entities, Nullable`1 disableWebPagePreview, Nullable`1 disableNotification, Nullable`1 protectContent, Nullable`1 replyToMessageId, Nullable`1 allowSendingWithoutReply, IReplyMarkup replyMarkup, CancellationToken cancellationToken)
+   at PeaceDaBoll.Messages.BadwordsCheck.EnterBadword(Message message, ChatMember chatMember, String MyChatId, TelegramBotClient Bot)
+   at PeaceDaBoll.Form1.HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+Source: Telegram.Bot
+15.10.2024 23:12:51: (@fylax224luv (815210840)) /badword 231
+15.10.2024 23:12:51: Error: Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\'
+StackTrace:    at Telegram.Bot.TelegramBotClient.MakeRequestAsync[TResponse](IRequest`1 request, CancellationToken cancellationToken)
+   at Telegram.Bot.TelegramBotClientExtensions.SendTextMessageAsync(ITelegramBotClient botClient, ChatId chatId, String text, Nullable`1 messageThreadId, Nullable`1 parseMode, IEnumerable`1 entities, Nullable`1 disableWebPagePreview, Nullable`1 disableNotification, Nullable`1 protectContent, Nullable`1 replyToMessageId, Nullable`1 allowSendingWithoutReply, IReplyMarkup replyMarkup, CancellationToken cancellationToken)
+   at PeaceDaBoll.Messages.BadwordsCheck.EnterBadword(Message message, ChatMember chatMember, String MyChatId, TelegramBotClient Bot)
+   at PeaceDaBoll.Form1.HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+Source: Telegram.Bot
+15.10.2024 23:14:23: (@fylax224luv (815210840)) /badword аывавып
+15.10.2024 23:14:23: Error: Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\'
+StackTrace:    at Telegram.Bot.TelegramBotClient.MakeRequestAsync[TResponse](IRequest`1 request, CancellationToken cancellationToken)
+   at Telegram.Bot.TelegramBotClientExtensions.SendTextMessageAsync(ITelegramBotClient botClient, ChatId chatId, String text, Nullable`1 messageThreadId, Nullable`1 parseMode, IEnumerable`1 entities, Nullable`1 disableWebPagePreview, Nullable`1 disableNotification, Nullable`1 protectContent, Nullable`1 replyToMessageId, Nullable`1 allowSendingWithoutReply, IReplyMarkup replyMarkup, CancellationToken cancellationToken)
+   at PeaceDaBoll.Messages.BadwordsCheck.EnterBadword(Message message, ChatMember chatMember, String MyChatId, TelegramBotClient Bot)
+   at PeaceDaBoll.Form1.HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+Source: Telegram.Bot
+15.10.2024 23:14:58: (@fylax224luv (815210840)) /badword 3123
+15.10.2024 23:20:46: (@fylax224luv (815210840)) /badword влдаыа

@@ -24,7 +24,7 @@ namespace PeaceDaBoll.Messages
                 {
                     System.IO.File.AppendAllText(BadWordsFilePath, badWord + Environment.NewLine);
                     await Bot.DeleteMessageAsync(chatId: MyChatId, messageId);
-                    await Bot.SendTextMessageAsync(chatId: MyChatId, "Слово добавлено в черный список.");
+                    await Bot.SendTextMessageAsync(chatId: MyChatId, text: @$"Слово <span class=""tg-spoiler"">{badWord}</span> добавлено в черный список.", parseMode: ParseMode.Html);
                 }
             }
             else
