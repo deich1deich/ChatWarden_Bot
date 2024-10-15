@@ -86,19 +86,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\dev\\.nuget\\packages\\": {}
+    "C:\\Users\\Fylax\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dev\\Source\\Repos\\ChatWarden_Bot\\PeaceDaBoll.csproj",
+      "projectUniqueName": "C:\\Users\\Fylax\\Desktop\\ChatWarden_Bot-asd\\PeaceDaBoll.csproj",
       "projectName": "PeaceDaBoll",
-      "projectPath": "C:\\Users\\dev\\Source\\Repos\\ChatWarden_Bot\\PeaceDaBoll.csproj",
-      "packagesPath": "C:\\Users\\dev\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dev\\Source\\Repos\\ChatWarden_Bot\\obj\\",
+      "projectPath": "C:\\Users\\Fylax\\Desktop\\ChatWarden_Bot-asd\\PeaceDaBoll.csproj",
+      "packagesPath": "C:\\Users\\Fylax\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Fylax\\Desktop\\ChatWarden_Bot-asd\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\dev\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Fylax\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -153,7 +153,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
