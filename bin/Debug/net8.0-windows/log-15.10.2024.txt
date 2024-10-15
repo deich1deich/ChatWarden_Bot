@@ -161,3 +161,4 @@ StackTrace:    at Telegram.Bot.TelegramBotClient.MakeRequestAsync[TResponse](IRe
 Source: Telegram.Bot
 15.10.2024 23:14:58: (@fylax224luv (815210840)) /badword 3123
 15.10.2024 23:20:46: (@fylax224luv (815210840)) /badword влдаыа
+15.10.2024 23:37:45: (@fylax224luv (815210840)) /profile

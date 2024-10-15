@@ -22,7 +22,7 @@ namespace PeaceDaBoll
     public partial class Form1 : Form
     {
         private static readonly string Token = "7665926697:AAFU7O64QE-jYfUSbjEG11ur8WkwAVolmbQ"; // токен бота
-        private const string MyChatId = "-1002377764215"; //cwars - -1002279258485 || тестовый чат - -1002397315613
+        private const string MyChatId = "-1002397315613"; //cwars - -1002279258485 || тестовый чат - -1002397315613
         private static TelegramBotClient Bot;
         private CancellationTokenSource cts;
         private static bool isReceivingMessages = true;

@@ -17,11 +17,9 @@ namespace PeaceDaBoll.Profiles
         public static async Task RankUp(string name)
         {
             var user = GetProfile(name);
-            int q = 0;
             if (Required.Contains(user.quantityMessage))
             {
-                q = Required.IndexOf(user.quantityMessage);
-                await GiveRank(name, q + 1);
+                await GiveRank(name, Required.IndexOf(user.quantityMessage) + 1);
             };
         }
 
@@ -46,7 +44,7 @@ namespace PeaceDaBoll.Profiles
         {
             UserProfile user = GetProfile(name);
             string text = 
-            $"Профиль: {user.Username} a.k.a. {user.CustomName}" + Environment.NewLine +
+            $"Профиль: {user.Username} {user.CustomName}" + Environment.NewLine +
             $"Звание: {Ranks[user.currentRank]}" + Environment.NewLine +
             $"Кол-во отправленных сообщений: {user.quantityMessage}" + Environment.NewLine +
             $"Кол-во полученных предупреждений: {user.quantityUserWarnings}/5" + Environment.NewLine +
