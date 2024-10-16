@@ -109,7 +109,7 @@
             // 
             notifyIcon1.ContextMenuStrip = contextMenuStrip1;
             notifyIcon1.Icon = (Icon)resources.GetObject("notifyIcon1.Icon");
-            notifyIcon1.Text = "notifyIcon1";
+            notifyIcon1.Text = "ChatWarden_Bot";
             notifyIcon1.MouseDoubleClick += notifyIcon1_MouseDoubleClick;
             // 
             // contextMenuStrip1
@@ -117,12 +117,12 @@
             contextMenuStrip1.ImageScalingSize = new Size(20, 20);
             contextMenuStrip1.Items.AddRange(new ToolStripItem[] { развернутьToolStripMenuItem });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(211, 56);
+            contextMenuStrip1.Size = new Size(157, 28);
             // 
             // развернутьToolStripMenuItem
             // 
             развернутьToolStripMenuItem.Name = "развернутьToolStripMenuItem";
-            развернутьToolStripMenuItem.Size = new Size(210, 24);
+            развернутьToolStripMenuItem.Size = new Size(156, 24);
             развернутьToolStripMenuItem.Text = "Развернуть";
             развернутьToolStripMenuItem.Click += развернутьToolStripMenuItem_Click;
             // 

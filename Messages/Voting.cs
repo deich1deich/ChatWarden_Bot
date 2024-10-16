@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Telegram.Bot;
 using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types;
-using Telegram.Bot;
 
 
 namespace PeaceDaBoll.Messages
@@ -16,6 +10,7 @@ namespace PeaceDaBoll.Messages
         public long? CreatorUserId { get; set; }
         public HashSet<int> Voters { get; set; }
         public int VotersCount { get; set; }
+        private const int MAX_VOTES = 10;
 
         public Voting(int targetUserId, int creatorUserId)
         {
@@ -60,11 +55,11 @@ namespace PeaceDaBoll.Messages
             int needed = 0;
             if (memberCount > 20)
             {
-                needed = 10;
+                needed = MAX_VOTES;
             }
             else if (memberCount < 20)
             {
-                needed = memberCount / 2;
+                needed = memberCount / 2; // 50% of group
             }
             if (currentVoting != null && !currentVoting.Voters.Contains(userid))
             {
