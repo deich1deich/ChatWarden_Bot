@@ -41,7 +41,6 @@ namespace PeaceDaBoll
         public Form1()
         {
             InitializeComponent();
-
         }
 
         private async void MainForm_Load(object sender, EventArgs e)
@@ -150,7 +149,7 @@ namespace PeaceDaBoll
                         }
                         else if (messageText.StartsWith("/badword"))
                         {
-                            await BadwordsCheck.EnterBadword(update.Message, chatMember, MyChatId, Bot);
+                            await BadwordsCheck.EnterBadword(Bot, update, MyChatId, Bot);
                         }
                         else if (messageText.StartsWith("/cancelvoteban"))
                         {
