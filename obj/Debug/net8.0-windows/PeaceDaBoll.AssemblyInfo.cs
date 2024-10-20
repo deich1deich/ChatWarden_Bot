@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PeaceDaBoll")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+84eff0882e29952cbb1933b640b04f508f3238fb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("PeaceDaBoll")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PeaceDaBoll")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
