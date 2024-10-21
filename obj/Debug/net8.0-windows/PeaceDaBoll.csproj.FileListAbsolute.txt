@@ -151,3 +151,13 @@ C:\Users\Fylax\Desktop\ChatWarden_Bot-secondary\obj\Debug\net8.0-windows\PeaceDa
 C:\Users\Fylax\Desktop\ChatWarden_Bot-secondary\obj\Debug\net8.0-windows\PeaceDaBoll.dll
 C:\Users\Fylax\Desktop\ChatWarden_Bot-secondary\obj\Debug\net8.0-windows\refint\PeaceDaBoll.dll
 C:\Users\Fylax\Desktop\ChatWarden_Bot-secondary\obj\Debug\net8.0-windows\PeaceDaBoll.pdb
+C:\Users\Fylax\Desktop\ChatWarden_Bot-secondary\bin\Debug\net8.0-windows\PeaceDaBoll.exe
+C:\Users\Fylax\Desktop\ChatWarden_Bot-secondary\bin\Debug\net8.0-windows\PeaceDaBoll.deps.json
+C:\Users\Fylax\Desktop\ChatWarden_Bot-secondary\bin\Debug\net8.0-windows\PeaceDaBoll.runtimeconfig.json
+C:\Users\Fylax\Desktop\ChatWarden_Bot-secondary\bin\Debug\net8.0-windows\PeaceDaBoll.dll
+C:\Users\Fylax\Desktop\ChatWarden_Bot-secondary\bin\Debug\net8.0-windows\PeaceDaBoll.pdb
+C:\Users\Fylax\Desktop\ChatWarden_Bot-secondary\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
+C:\Users\Fylax\Desktop\ChatWarden_Bot-secondary\bin\Debug\net8.0-windows\Telegram.Bot.dll
+C:\Users\Fylax\Desktop\ChatWarden_Bot-secondary\obj\Debug\net8.0-windows\PeaceDaB.9E3B6A29.Up2Date
+C:\Users\Fylax\Desktop\ChatWarden_Bot-secondary\obj\Debug\net8.0-windows\PeaceDaBoll.genruntimeconfig.cache
+C:\Users\Fylax\Desktop\ChatWarden_Bot-secondary\obj\Debug\net8.0-windows\ref\PeaceDaBoll.dll

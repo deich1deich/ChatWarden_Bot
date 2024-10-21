@@ -1,0 +1,45 @@
+21.10.2024 21:54:45: (@BezdareH (1072164673)) хуй
+21.10.2024 21:54:50: (@BezdareH (1072164673)) ХУЙ
+21.10.2024 21:54:55: (@BezdareH (1072164673)) соси чмо
+21.10.2024 21:54:57: (@BezdareH (1072164673)) ыъвхазжхъывзаъхвызхаъв
+21.10.2024 21:55:02: (@fylax224luv (815210840)) ./voteban
+21.10.2024 21:55:07: (@BezdareH (1072164673)) /voteban
+21.10.2024 21:55:15: (@BezdareH (1072164673)) /voteban @cerberuss09
+21.10.2024 21:55:24: (@cerberuss09 (1337835601)) gdhgdcj
+21.10.2024 21:55:28: (@BezdareH (1072164673)) /voteban
+21.10.2024 21:55:32: (@fylax224luv (815210840)) /vote@PeaceDaBoll_Bot
+21.10.2024 21:55:48: (@fylax224luv (815210840)) /cancelvoteban
+21.10.2024 21:56:11: (@fylax224luv (815210840)) /voteban
+21.10.2024 21:56:29: (@BezdareH (1072164673)) /vote
+21.10.2024 21:56:30: Error: Bad Request: user is an administrator of the chat
+StackTrace:    at Telegram.Bot.TelegramBotClient.MakeRequestAsync[TResponse](IRequest`1 request, CancellationToken cancellationToken)
+   at Telegram.Bot.TelegramBotClientExtensions.BanChatMemberAsync(ITelegramBotClient botClient, ChatId chatId, Int64 userId, Nullable`1 untilDate, Nullable`1 revokeMessages, CancellationToken cancellationToken)
+   at PeaceDaBoll.Messages.Vote.VotingProcessing(TelegramBotClient _Bot, Message message, String chatId) in C:\Users\Fylax\Desktop\ChatWarden_Bot-secondary\Messages\Vote.cs:line 156
+   at PeaceDaBoll.Form1.HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken) in C:\Users\Fylax\Desktop\ChatWarden_Bot-secondary\Form1.cs:line 201
+   at Telegram.Bot.Polling.DefaultUpdateHandler.HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+   at Telegram.Bot.Polling.DefaultUpdateReceiver.ReceiveAsync(IUpdateHandler updateHandler, CancellationToken cancellationToken)
+   at Telegram.Bot.TelegramBotClientExtensions.ReceiveAsync(ITelegramBotClient botClient, IUpdateHandler updateHandler, ReceiverOptions receiverOptions, CancellationToken cancellationToken)
+   at Telegram.Bot.TelegramBotClientExtensions.<>c__DisplayClass126_0.<<StartReceiving>b__0>d.MoveNext()
+Source: Telegram.Bot
+21.10.2024 22:06:39: (@BezdareH (1072164673)) /vote
+21.10.2024 22:06:40: (@fylax224luv (815210840)) /profile
+21.10.2024 22:06:41: (@fylax224luv (815210840)) /profile
+21.10.2024 22:06:41: (@BezdareH (1072164673)) /prorile
+21.10.2024 22:06:42: (@fylax224luv (815210840)) /profile@peacedaboll_bot
+21.10.2024 22:06:42: (@fylax224luv (815210840)) /profile@peacedaboll_bot
+21.10.2024 22:06:46: (@fylax224luv (815210840)) /p
+21.10.2024 22:06:46: (@fylax224luv (815210840)) /vp
+21.10.2024 22:09:34: Error: Object reference not set to an instance of an object.
+StackTrace:    at PeaceDaBoll.Form1.HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken) in C:\Users\Fylax\Desktop\ChatWarden_Bot-secondary\Form1.cs:line 73
+   at Telegram.Bot.Polling.DefaultUpdateHandler.HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+   at Telegram.Bot.Polling.DefaultUpdateReceiver.ReceiveAsync(IUpdateHandler updateHandler, CancellationToken cancellationToken)
+   at Telegram.Bot.TelegramBotClientExtensions.ReceiveAsync(ITelegramBotClient botClient, IUpdateHandler updateHandler, ReceiverOptions receiverOptions, CancellationToken cancellationToken)
+   at Telegram.Bot.TelegramBotClientExtensions.<>c__DisplayClass126_0.<<StartReceiving>b__0>d.MoveNext()
+Source: PeaceDaBoll
+21.10.2024 22:20:31: (@fylax224luv (815210840)) /cvb
+21.10.2024 22:20:32: (@fylax224luv (815210840)) /r
+21.10.2024 22:20:32: (@fylax224luv (815210840)) /p
+21.10.2024 22:20:32: (@fylax224luv (815210840)) /p
+21.10.2024 22:20:40: (@fylax224luv (815210840)) /p
+21.10.2024 22:20:49: (@fylax224luv (815210840)) /p
+21.10.2024 22:20:56: (@fylax224luv (815210840)) /vb
