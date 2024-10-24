@@ -17,10 +17,12 @@ namespace PeaceDaBoll.Messages
         /// Максимально допустимое количество потенциальных Voters.
         /// </summary>
         private const int MAX_VOTERS = 50;
+
         /// <summary>
         /// Минимально допустимое количество потенциальных Voters.
         /// </summary>
         private const int MIN_VOTERS = 5;
+
         /// <summary>
         /// Применяется, если Voters.Count / 2 превышает эту константу.
         /// </summary>
@@ -30,6 +32,7 @@ namespace PeaceDaBoll.Messages
         /// Id пользователя, выступающего целью голосования.
         /// </summary>
         public static int TargetUserId = 0;
+        
         /// <summary>
         /// null - нет голосования, false - голосование против ChatMemberStatus.Member, true - голосование против ChatMemberStatus.Admin.
         /// </summary>
@@ -81,6 +84,7 @@ namespace PeaceDaBoll.Messages
                 await Bot.SendTextMessageAsync(chatId, "Голосование уже идёт.");
             }
         }
+
         /// <summary>
         /// Процесс голосвания. Производится вычисление необходимого кол-ва голосов при разных статусах голосования.
         /// </summary>
@@ -162,6 +166,7 @@ namespace PeaceDaBoll.Messages
                     }
             }
         }
+
         /// <summary>
         /// Метод отмены голосования, допускающий отмену пользователем creator всех голосований, а пользователем admin - отмену голосвания против member
         /// </summary>
