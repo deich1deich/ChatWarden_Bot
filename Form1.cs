@@ -10,9 +10,9 @@ namespace PeaceDaBoll
 {
     public partial class Form1 : Form
     {
-//#nullable disable
+#nullable disable
         private static readonly string Token = "7665926697:AAFU7O64QE-jYfUSbjEG11ur8WkwAVolmbQ"; // токен бота
-        private const string MyChatId = "-1002377764215"; //cwars - -1002279258485 || тестовый чат - -1002397315613
+        private const string MyChatId = "-1002279258485"; //cwars - -1002279258485 || тестовый чат - -1002397315613
         private static TelegramBotClient Bot;
         private CancellationTokenSource cts;
         private static bool isReceivingMessages = true;
@@ -70,7 +70,7 @@ namespace PeaceDaBoll
         {
             try
             {
-                User user = update.Message.From;
+            User user = update.Message.From;
             string messageText = update.Message.Text;
             var chatMember = await Bot.GetChatMemberAsync(MyChatId, user.Id);
             string userReply = update.Message.ReplyToMessage?.From.Username.Replace("@", "");
@@ -113,16 +113,16 @@ namespace PeaceDaBoll
                     }
                     if (isReceivingMessages == true)
                     {
-                        if (messageText.StartsWith("/point") || messageText.StartsWith("/pt") && update.Message.ReplyToMessage != null) //Работа с очками пользователя
+                        if (messageText.StartsWith("/point") && update.Message.ReplyToMessage != null) //Работа с очками пользователя
                         {
                             UserStat.ChangePoints(userReply, messageText);
                             await botClient.SendTextMessageAsync(MyChatId, $"{userReply}: значение баллов изменено.");
                         }
-                        else if (messageText.StartsWith("/point") || messageText.StartsWith("/pt") && update.Message.ReplyToMessage == null)
+                        else if (messageText.StartsWith("/point") && update.Message.ReplyToMessage == null)
                         {
                             await botClient.SendTextMessageAsync(MyChatId, "Выделите пользователя ответом.");
                         }
-                        else if (messageText.StartsWith("/warn") || messageText.StartsWith("/w") && update.Message.ReplyToMessage != null)
+                        else if (messageText.StartsWith("/warn") && update.Message.ReplyToMessage != null)
                         {
                             if (chatMember.Status != ChatMemberStatus.Administrator || chatMember.Status != ChatMemberStatus.Creator)
                             {
@@ -134,24 +134,24 @@ namespace PeaceDaBoll
                                 await botClient.SendTextMessageAsync(MyChatId, "Применять данные команды по отношению к админам нельзя");
                             }
                         }
-                        else if (messageText.StartsWith("/warn") || messageText.StartsWith("/w") && update.Message.ReplyToMessage == null)
+                        else if (messageText.StartsWith("/warn") && update.Message.ReplyToMessage == null)
                         {
                             await botClient.SendTextMessageAsync(MyChatId, "Выделите пользователя ответом.");
                         }
-                        else if (messageText.StartsWith("/editname") || messageText.StartsWith("/en") && update.Message.ReplyToMessage != null)
+                        else if (messageText.StartsWith("/editname") && update.Message.ReplyToMessage != null)
                         {
                             UserStat.ChangeCustomNickname(userReply, messageText);
                             await botClient.SendTextMessageAsync(MyChatId, $"{userReply}: ник изменён.");
                         }
-                        else if (messageText.StartsWith("/editname") || messageText.StartsWith("/en") && update.Message.ReplyToMessage == null)
+                        else if (messageText.StartsWith("/editname") && update.Message.ReplyToMessage == null)
                         {
                             await botClient.SendTextMessageAsync(MyChatId, "Выделите пользователя ответом.");
                         }
-                        else if (messageText.StartsWith("/badword") || messageText.StartsWith("/bw"))
+                        else if (messageText.StartsWith("/badword"))
                         {
                             await BadwordsCheck.EnterBadword(Bot, update.Message, chatMember, MyChatId);
                         }
-                        else if (messageText.StartsWith("/cancelvoteban") || messageText.StartsWith("/cvb"))
+                        else if (messageText.StartsWith("/cancelvoteban"))
                         {
                             await Vote.CancelVoting(Bot, update.Message, MyChatId);
                         }
@@ -177,11 +177,11 @@ namespace PeaceDaBoll
                             await botClient.SendTextMessageAsync(MyChatId, $"Профиль нового пользователя создан!" + Environment.NewLine + $"{UserStat.ViewProfile(name)}");
                             UserStat.ChangeMessageCount(name);
                         }
-                        if (messageText.StartsWith("/help") || messageText.StartsWith("/h"))
+                        if (messageText.StartsWith("/help"))
                         {
                             await Bot.SendTextMessageAsync(MyChatId, HELP_MESSAGE);
                         }
-                        else if (int.TryParse(Regex.Match(messageText, "[0-9]+$").Value, out int value) && messageText.StartsWith("/roll") || messageText.StartsWith("/r"))
+                        else if (int.TryParse(Regex.Match(messageText, "[0-9]+$").Value, out int value) && messageText.StartsWith("/roll"))
                         {
                             if (value <= int.MaxValue - 2)
                             {
@@ -192,23 +192,23 @@ namespace PeaceDaBoll
                                 await Bot.SendTextMessageAsync(MyChatId, "Введённое число больше максимально возможного.");
                             }
                         }
-                        else if (messageText.StartsWith("/vb") || messageText.StartsWith("/voteban") && update.Message.ReplyToMessage?.From.Id != null)
+                        else if (messageText.StartsWith("/voteban") && update.Message.ReplyToMessage?.From.Id != null)
                         {
                             await Vote.StartVoting(Bot, update.Message, MyChatId);
                         }
-                        else if (messageText.StartsWith("/vote") || messageText.StartsWith("/v"))
+                        else if (messageText.StartsWith("/vote"))
                         {
                             await Vote.VotingProcessing(Bot, update.Message, MyChatId);
                         }
-                        else if (messageText.StartsWith("/profile") || messageText.StartsWith("/p "))
+                        else if (messageText.StartsWith("/profile"))
                         {
                             string profile = "";
                             if (FileProfiles.Exists(Regex.Match(messageText, @"(?<=/profile )[A-Za-z0-9]+").Value))
                             {
-                                profile = UserStat.ViewProfile(messageText);
+                                profile = UserStat.ViewProfile(Regex.Match(messageText, @"(?<=/profile )[A-Za-z0-9]+").Value);
                                 await botClient.SendTextMessageAsync(MyChatId, profile);
                             }
-                            else if (messageText == "/profile" || messageText == "/p")
+                            else if (messageText == "/profile")
                             {
                                 profile = UserStat.ViewProfile(user.Username.Replace("@", ""));
                                 await botClient.SendTextMessageAsync(MyChatId, profile);
@@ -229,8 +229,8 @@ namespace PeaceDaBoll
             }
             catch (Exception exception)
             {
-                //    //Invoke((MethodInvoker)(() => Chat_TextBox.Text += $"[{DateTime.Now:G}] Ошибка: {ex}"));
-                //    //Chat_TextBox.Text += $"Ошибка: {ex}" + Environment.NewLine;
+                //Invoke((MethodInvoker)(() => Chat_TextBox.Text += $"[{DateTime.Now:G}] Ошибка: {ex}"));
+                //Chat_TextBox.Text += $"Ошибка: {ex}" + Environment.NewLine;
                 //await WriteLog($"Error: {exception.Message}\nStackTrace: {exception.StackTrace}\nSource: {exception.Source}");
             }
         }

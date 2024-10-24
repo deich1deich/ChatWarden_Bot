@@ -91,11 +91,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Fylax\\Desktop\\ChatWarden_Bot-secondary\\PeaceDaBoll.csproj",
+      "projectUniqueName": "C:\\Users\\Fylax\\Desktop\\ChatWarden_Bot-Sasha-branch\\PeaceDaBoll.csproj",
       "projectName": "PeaceDaBoll",
-      "projectPath": "C:\\Users\\Fylax\\Desktop\\ChatWarden_Bot-secondary\\PeaceDaBoll.csproj",
+      "projectPath": "C:\\Users\\Fylax\\Desktop\\ChatWarden_Bot-Sasha-branch\\PeaceDaBoll.csproj",
       "packagesPath": "C:\\Users\\Fylax\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Fylax\\Desktop\\ChatWarden_Bot-secondary\\obj\\",
+      "outputPath": "C:\\Users\\Fylax\\Desktop\\ChatWarden_Bot-Sasha-branch\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Fylax\\AppData\\Roaming\\NuGet\\NuGet.Config",
