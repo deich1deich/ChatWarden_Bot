@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Fylax\\Desktop\\ChatWarden_Bot-Sasha-branch\\PeaceDaBoll.csproj": {}
+    "C:\\Users\\pavel\\Source\\Repos\\ChatWarden_Bot\\PeaceDaBoll.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Fylax\\Desktop\\ChatWarden_Bot-Sasha-branch\\PeaceDaBoll.csproj": {
+    "C:\\Users\\pavel\\Source\\Repos\\ChatWarden_Bot\\PeaceDaBoll.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Fylax\\Desktop\\ChatWarden_Bot-Sasha-branch\\PeaceDaBoll.csproj",
+        "projectUniqueName": "C:\\Users\\pavel\\Source\\Repos\\ChatWarden_Bot\\PeaceDaBoll.csproj",
         "projectName": "PeaceDaBoll",
-        "projectPath": "C:\\Users\\Fylax\\Desktop\\ChatWarden_Bot-Sasha-branch\\PeaceDaBoll.csproj",
-        "packagesPath": "C:\\Users\\Fylax\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Fylax\\Desktop\\ChatWarden_Bot-Sasha-branch\\obj\\",
+        "projectPath": "C:\\Users\\pavel\\Source\\Repos\\ChatWarden_Bot\\PeaceDaBoll.csproj",
+        "packagesPath": "C:\\Users\\pavel\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pavel\\Source\\Repos\\ChatWarden_Bot\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Fylax\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\pavel\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -69,7 +70,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

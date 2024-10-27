@@ -17,7 +17,7 @@ namespace PeaceDaBoll.Messages
         /// <param name="chatMember">Объект участника чата</param>
         /// <param name="MyChatId">Id чата</param>
         /// <param name="Bot">Объект бота</param>
-        public static async Task EnterBadword(TelegramBotClient Bot, Telegram.Bot.Types.Message message, ChatMember chatMember, string MyChatId)
+        public static async Task EnterBadword(ITelegramBotClient Bot, Telegram.Bot.Types.Message message, ChatMember chatMember, string MyChatId)
         {
             var messageText = message.Text;
             var messageId = message.MessageId;
@@ -50,7 +50,7 @@ namespace PeaceDaBoll.Messages
         /// <param name="message">Объект сообщения</param>
         /// <param name="MyChatId">Id чата</param>
         /// <param name="Bot">Объект бота</param>
-        public static async Task MessageCheck(TelegramBotClient Bot, Telegram.Bot.Types.Message message, string MyChatId)
+        public static async Task MessageCheck(ITelegramBotClient Bot, Telegram.Bot.Types.Message message, string MyChatId)
         {
             var badWords = GetBadwords(BadWordsFilePath).Select(word => word.ToLower()).ToHashSet();
             bool result = message.Text.Split(separators).Any(userWord => badWords.Contains(userWord.ToLower()));

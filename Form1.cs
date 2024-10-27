@@ -5,6 +5,7 @@ using Telegram.Bot;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using Message = Telegram.Bot.Types.Message;
 
 namespace PeaceDaBoll
 {
@@ -12,7 +13,7 @@ namespace PeaceDaBoll
     {
 #nullable disable
         private static readonly string Token = "7665926697:AAFU7O64QE-jYfUSbjEG11ur8WkwAVolmbQ"; // токен бота
-        private const string MyChatId = "-1002279258485"; //cwars - -1002279258485 || тестовый чат - -1002397315613
+        private const string MyChatId = "-1002328750691"; //cwars - -1002279258485 || тестовый чат - -1002397315613 || ещё чатик - -1002328750691
         private static TelegramBotClient Bot;
         private CancellationTokenSource cts;
         private static bool isReceivingMessages = true;
@@ -57,7 +58,7 @@ namespace PeaceDaBoll
             await Task.Delay(1);
         }
 
-        public static async Task<bool> IsUserAdmin(long user)                     // S00QA ISPOLZUITE ETU HUETU, а лучше перепишите адекватно.
+        public static async Task<bool> IsUserAdmin(long user)
         {
             var chatMembers = await Bot.GetChatMemberAsync(MyChatId, user);
 
@@ -70,169 +71,219 @@ namespace PeaceDaBoll
         {
             try
             {
-            User user = update.Message.From;
-            string messageText = update.Message.Text;
-            var chatMember = await Bot.GetChatMemberAsync(MyChatId, user.Id);
-            string userReply = update.Message.ReplyToMessage?.From.Username.Replace("@", "");
+                if (update.Type != UpdateType.Message || update.Message == null || update.Message.Text == null)
+                    return;
 
-            #region bespoleznaya_huita
-            if (MessageType.Text == update.Message.Type)
-            {
-                WriteLog($"({user}) {messageText}");
-            }
-            else if (MessageType.Audio == update.Message.Type)
-            {
-                WriteLog($"({user}) отправил аудио длиной {update.Message.Audio.Duration} сек");
-            }
-            else if (MessageType.Voice == update.Message.Type)
-            {
-                WriteLog($"({user}) отправил аудио длиной {update.Message.Voice.Duration} сек");
-            }
-            else if (MessageType.Photo == update.Message.Type)
-            {
-                WriteLog($"({user}) отправил изображение");
-            }
-            #endregion
+                User user = update.Message.From;
+                string messageText = update.Message.Text;
+                var chatMember = await botClient.GetChatMemberAsync(MyChatId, user.Id);
+                string userReply = update.Message.ReplyToMessage?.From.Username?.Replace("@", "") ?? "";
 
-            if (update.Type == UpdateType.Message && update.Message?.Text != null)
-            {
-                Invoke((MethodInvoker)(() => Chat_TextBox.Text += $"[{DateTime.Now:G}] {update.Message.From.Username} ({update.Message.From.Id}): {update.Message.Text}{Environment.NewLine}"));
+                LogMessage(user, messageText, update.Message);
 
-                #region admin&&Creator
-                if (IsUserAdmin(user.Id).Result || user.Username.Replace("@", "") == "BlastorChan" || user.Username.Replace("@", "") == "IamDeich")
+                if (await IsUserAdmin(user.Id) || IsSpecialUser(user.Username))
                 {
-                    if (messageText.StartsWith("/on") && isReceivingMessages == false)
-                    {
-                        isReceivingMessages = true;
-                        await Bot.SendTextMessageAsync(MyChatId, "Бот включен.");
-                    }
-                    else if (messageText.StartsWith("/off") && isReceivingMessages != false)
-                    {
-                        isReceivingMessages = false;
-                        await Bot.SendTextMessageAsync(MyChatId, "Бот выключен.");
-                    }
-                    if (isReceivingMessages == true)
-                    {
-                        if (messageText.StartsWith("/point") && update.Message.ReplyToMessage != null) //Работа с очками пользователя
-                        {
-                            UserStat.ChangePoints(userReply, messageText);
-                            await botClient.SendTextMessageAsync(MyChatId, $"{userReply}: значение баллов изменено.");
-                        }
-                        else if (messageText.StartsWith("/point") && update.Message.ReplyToMessage == null)
-                        {
-                            await botClient.SendTextMessageAsync(MyChatId, "Выделите пользователя ответом.");
-                        }
-                        else if (messageText.StartsWith("/warn") && update.Message.ReplyToMessage != null)
-                        {
-                            if (chatMember.Status != ChatMemberStatus.Administrator || chatMember.Status != ChatMemberStatus.Creator)
-                            {
-                                UserStat.ChangeWarning(userReply, messageText);
-                                await botClient.SendTextMessageAsync(MyChatId, $"{userReply}: количество предупреждений изменено.");
-                            }
-                            else
-                            {
-                                await botClient.SendTextMessageAsync(MyChatId, "Применять данные команды по отношению к админам нельзя");
-                            }
-                        }
-                        else if (messageText.StartsWith("/warn") && update.Message.ReplyToMessage == null)
-                        {
-                            await botClient.SendTextMessageAsync(MyChatId, "Выделите пользователя ответом.");
-                        }
-                        else if (messageText.StartsWith("/editname") && update.Message.ReplyToMessage != null)
-                        {
-                            UserStat.ChangeCustomNickname(userReply, messageText);
-                            await botClient.SendTextMessageAsync(MyChatId, $"{userReply}: ник изменён.");
-                        }
-                        else if (messageText.StartsWith("/editname") && update.Message.ReplyToMessage == null)
-                        {
-                            await botClient.SendTextMessageAsync(MyChatId, "Выделите пользователя ответом.");
-                        }
-                        else if (messageText.StartsWith("/badword"))
-                        {
-                            await BadwordsCheck.EnterBadword(Bot, update.Message, chatMember, MyChatId);
-                        }
-                        else if (messageText.StartsWith("/cancelvoteban"))
-                        {
-                            await Vote.CancelVoting(Bot, update.Message, MyChatId);
-                        }
-                    }
+                    await HandleAdminCommands(botClient, messageText, update.Message, userReply, chatMember);
                 }
-                #endregion
 
-                #region Others
-                if (isReceivingMessages == true)
+                if (isReceivingMessages)
                 {
-                    if (update.Type == UpdateType.Message)
-                    {
-                        string name = user.Username.Replace("@", "");
-                        if (FileProfiles.Exists(name)) //Обработка последней активности пользователя исходя из отправленных сообщений
-                        {
-                            UserStat.ChangeLastDate(name, DateTime.Now); //Изменение даты последней активности
-                            UserStat.ChangeMessageCount(name); //Обновление кол-ва сообщений отправленных пользователем ++
-                            UserStat.RankUp(name); //Обновление ранга
-                        }
-                        else
-                        {
-                            UserStat.AddUser(name);
-                            await botClient.SendTextMessageAsync(MyChatId, $"Профиль нового пользователя создан!" + Environment.NewLine + $"{UserStat.ViewProfile(name)}");
-                            UserStat.ChangeMessageCount(name);
-                        }
-                        if (messageText.StartsWith("/help"))
-                        {
-                            await Bot.SendTextMessageAsync(MyChatId, HELP_MESSAGE);
-                        }
-                        else if (int.TryParse(Regex.Match(messageText, "[0-9]+$").Value, out int value) && messageText.StartsWith("/roll"))
-                        {
-                            if (value <= int.MaxValue - 2)
-                            {
-                                await Bot.SendTextMessageAsync(MyChatId, new Random().Next(0, Convert.ToInt32(new Regex("[0-9]+$").Match(update.Message.Text).Value) + 1).ToString());
-                            }
-                            else if (value > int.MaxValue - 2)
-                            {
-                                await Bot.SendTextMessageAsync(MyChatId, "Введённое число больше максимально возможного.");
-                            }
-                        }
-                        else if (messageText.StartsWith("/voteban") && update.Message.ReplyToMessage?.From.Id != null)
-                        {
-                            await Vote.StartVoting(Bot, update.Message, MyChatId);
-                        }
-                        else if (messageText.StartsWith("/vote"))
-                        {
-                            await Vote.VotingProcessing(Bot, update.Message, MyChatId);
-                        }
-                        else if (messageText.StartsWith("/profile"))
-                        {
-                            string profile = "";
-                            if (FileProfiles.Exists(Regex.Match(messageText, @"(?<=/profile )[A-Za-z0-9]+").Value))
-                            {
-                                profile = UserStat.ViewProfile(Regex.Match(messageText, @"(?<=/profile )[A-Za-z0-9]+").Value);
-                                await botClient.SendTextMessageAsync(MyChatId, profile);
-                            }
-                            else if (messageText == "/profile")
-                            {
-                                profile = UserStat.ViewProfile(user.Username.Replace("@", ""));
-                                await botClient.SendTextMessageAsync(MyChatId, profile);
-                            }
-                            else
-                            {
-                                await botClient.SendTextMessageAsync(MyChatId, "Такого пользователя не существует!");
-                            }
-                        }
-                        else if (chatMember.Status == ChatMemberStatus.Member)
-                        {
-                            await BadwordsCheck.MessageCheck(Bot, update.Message, MyChatId);
-                        }
-                    }
+                    await HandleUserCommands(botClient, messageText, update.Message, user);
                 }
-                #endregion
             }
-            }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                //Invoke((MethodInvoker)(() => Chat_TextBox.Text += $"[{DateTime.Now:G}] Ошибка: {ex}"));
-                //Chat_TextBox.Text += $"Ошибка: {ex}" + Environment.NewLine;
-                //await WriteLog($"Error: {exception.Message}\nStackTrace: {exception.StackTrace}\nSource: {exception.Source}");
+                // Логирование ошибок
+                WriteLog($"Error: {ex.Message}\nStackTrace: {ex.StackTrace}\nSource: {ex.Source}");
             }
+        }
+
+        private void LogMessage(User user, string messageText, Message message)
+        {
+            string logMessage;
+
+            switch (message.Type)
+            {
+                case MessageType.Text:
+                    logMessage = $"({user}) {messageText}";
+                    break;
+                case MessageType.Audio:
+                    logMessage = $"({user}) отправил аудио длиной {message.Audio.Duration} сек";
+                    break;
+                case MessageType.Voice:
+                    logMessage = $"({user}) отправил голосовое сообщение длиной {message.Voice.Duration} сек";
+                    break;
+                case MessageType.Photo:
+                    logMessage = $"({user}) отправил изображение";
+                    break;
+                default:
+                    return; // Ignore other message types
+            }
+
+            WriteLog(logMessage);
+            Invoke((MethodInvoker)(() => Chat_TextBox.Text += $"[{DateTime.Now:G}] {user.Username} ({user.Id}): {messageText}{Environment.NewLine}"));
+        }
+
+        private bool IsSpecialUser(string username)
+        {
+            return username == "BlastorChan" || username == "IamDeich";
+        }
+
+        private async Task HandleAdminCommands(ITelegramBotClient botClient, string messageText, Message message, string userReply, ChatMember chatMember)
+        {
+            if (messageText.StartsWith("/on") && !isReceivingMessages)
+            {
+                isReceivingMessages = true;
+                await botClient.SendTextMessageAsync(MyChatId, "Бот включен.");
+            }
+            else if (messageText.StartsWith("/off") && isReceivingMessages)
+            {
+                isReceivingMessages = false;
+                await botClient.SendTextMessageAsync(MyChatId, "Бот выключен.");
+            }
+
+            if (isReceivingMessages)
+            {
+                if (messageText.StartsWith("/point"))
+                {
+                    await HandlePointCommand(botClient, message, userReply, messageText);
+                }
+                else if (messageText.StartsWith("/warn"))
+                {
+                    await HandleWarnCommand(botClient, message, userReply, chatMember);
+                }
+                else if (messageText.StartsWith("/editname"))
+                {
+                    await HandleEditNameCommand(botClient, message, userReply, messageText);
+                }
+                else if (messageText.StartsWith("/badword"))
+                {
+                    await BadwordsCheck.EnterBadword(botClient, message, chatMember, MyChatId);
+                }
+                else if (messageText.StartsWith("/cancelvoteban"))
+                {
+                    await Vote.CancelVoting(botClient, message, MyChatId);
+                }
+            }
+        }
+
+        private async Task HandlePointCommand(ITelegramBotClient botClient, Message message, string userReply, string messageText)
+        {
+            if (message.ReplyToMessage != null)
+            {
+                UserStat.ChangePoints(userReply, messageText);
+                await botClient.SendTextMessageAsync(MyChatId, $"{userReply}: значение баллов изменено.");
+            }
+            else
+            {
+                await botClient.SendTextMessageAsync(MyChatId, "Выделите пользователя ответом.");
+            }
+        }
+
+        private async Task HandleWarnCommand(ITelegramBotClient botClient, Message message, string userReply, ChatMember chatMember)
+        {
+            if (IsUserAdmin(message.From.Id).Result)
+            {
+                if (message.ReplyToMessage != null)
+                {
+                    UserStat.ChangeWarning(userReply, message.Text);
+                    await botClient.SendTextMessageAsync(MyChatId, $"{userReply}: количество предупреждений изменено.");
+                }
+                else
+                {
+                    await botClient.SendTextMessageAsync(MyChatId, "Выделите пользователя ответом.");
+                }
+            }
+            else
+            {
+                await botClient.SendTextMessageAsync(MyChatId, "Применять данные команды по отношению к админам нельзя");
+            }
+        }
+
+        private async Task HandleEditNameCommand(ITelegramBotClient botClient, Message message, string userReply, string messageText)
+        {
+            if (message.ReplyToMessage != null)
+            {
+                UserStat.ChangeCustomNickname(userReply, messageText);
+                await botClient.SendTextMessageAsync(MyChatId, $"{userReply}: ник изменён.");
+            }
+            else
+            {
+                await botClient.SendTextMessageAsync(MyChatId, "Выделите пользователя ответом.");
+            }
+        }
+
+        private async Task HandleUserCommands(ITelegramBotClient botClient, string messageText, Message message, User user)
+        {
+            string username = user.Username.Replace("@", "");
+            if (FileProfiles.Exists(username))
+            {
+                UserStat.ChangeLastDate(username, DateTime.Now);
+                UserStat.ChangeMessageCount(username);
+                UserStat.RankUp(username);
+            }
+            else
+            {
+                UserStat.AddUser(username);
+                await botClient.SendTextMessageAsync(MyChatId, $"Профиль нового пользователя создан!" + Environment.NewLine + $"{UserStat.ViewProfile(username)}");
+                UserStat.ChangeMessageCount(username);
+            }
+
+            if (messageText.StartsWith("/help"))
+            {
+                await botClient.SendTextMessageAsync(MyChatId, HELP_MESSAGE);
+            }
+            else if (messageText.StartsWith("/roll") && TryGetRollValue(messageText, out int rollValue))
+            {
+                await botClient.SendTextMessageAsync(MyChatId, new Random().Next(0, rollValue + 1).ToString());
+            }
+            else if (messageText.StartsWith("/voteban") && message.ReplyToMessage?.From.Id != null)
+            {
+                await Vote.StartVoting(botClient, message, MyChatId);
+            }
+            else if (messageText.StartsWith("/vote"))
+            {
+                await Vote.VotingProcessing(botClient, message, MyChatId);
+            }
+            else if (messageText.StartsWith("/profile"))
+            {
+                await HandleProfileCommand(botClient, messageText, user);
+            }
+            else
+            {
+                await BadwordsCheck.MessageCheck(botClient, message, MyChatId);
+            }
+        }
+
+        private bool TryGetRollValue(string messageText, out int value)
+        {
+            string numberPart = Regex.Match(messageText, "[0-9]+$").Value;
+            return int.TryParse(numberPart, out value) && value <= int.MaxValue - 2;
+        }
+
+        private async Task HandleProfileCommand(ITelegramBotClient botClient, string messageText, User user)
+        {
+            string targetUsername = Regex.Match(messageText, @"(?<=/profile )[A-Za-z0-9_]+").Value;
+
+            if (string.IsNullOrEmpty(targetUsername))
+            {
+                targetUsername = user.Username.Replace("@", "");
+            }
+
+            if (FileProfiles.Exists(targetUsername))
+            {
+                string profile = UserStat.ViewProfile(targetUsername);
+                await botClient.SendTextMessageAsync(MyChatId, profile);
+            }
+            else
+            {
+                await botClient.SendTextMessageAsync(MyChatId, "Такого пользователя не существует!");
+            }
+        }
+
+        private async Task<bool> IsUserMember(ChatMember chatMember)
+        {
+            return chatMember.Status == ChatMemberStatus.Member;
         }
 
         #region HandleError

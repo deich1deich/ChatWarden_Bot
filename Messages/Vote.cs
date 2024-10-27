@@ -50,7 +50,7 @@ namespace PeaceDaBoll.Messages
         /// <param name="message">Сообщение, при котором вызывается этот метод</param>
         /// <param name="chatId">Id текущего чата</param>
         /// <returns></returns>
-        public static async Task StartVoting(TelegramBotClient Bot, Telegram.Bot.Types.Message message, string chatId)
+        public static async Task StartVoting(ITelegramBotClient Bot, Telegram.Bot.Types.Message message, string chatId)
         {
             User mark = message.ReplyToMessage.From;
             User initiator = message.From;
@@ -92,7 +92,7 @@ namespace PeaceDaBoll.Messages
         /// <param name="message">Сообщение, при котором вызывается этот метод</param>
         /// <param name="chatId">Id текущего чата</param>
         /// <returns></returns>
-        public static async Task VotingProcessing(TelegramBotClient Bot, Telegram.Bot.Types.Message message, string chatId)
+        public static async Task VotingProcessing(ITelegramBotClient Bot, Telegram.Bot.Types.Message message, string chatId)
         {
             int countToBan = 0;
             int memberCount = await Bot.GetChatMemberCountAsync(chatId);
@@ -174,7 +174,7 @@ namespace PeaceDaBoll.Messages
         /// <param name="message">Сообщение, при котором вызывается этот метод</param>
         /// <param name="chatId">Id текущего чата</param>
         /// <returns></returns>
-        public static async Task CancelVoting(TelegramBotClient Bot, Telegram.Bot.Types.Message message, string chatId)
+        public static async Task CancelVoting(ITelegramBotClient Bot, Telegram.Bot.Types.Message message, string chatId)
         {
             ChatMember member = await Bot.GetChatMemberAsync(chatId, message.From.Id);
             if (VotingStatus == null)
