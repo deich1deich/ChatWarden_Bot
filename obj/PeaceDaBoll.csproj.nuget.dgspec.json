@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dev\\Source\\Repos\\ChatWarden_Bot\\PeaceDaBoll.csproj": {}
+    "C:\\Users\\dev\\source\\repos\\ChatWarden_Bot\\PeaceDaBoll.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dev\\Source\\Repos\\ChatWarden_Bot\\PeaceDaBoll.csproj": {
+    "C:\\Users\\dev\\source\\repos\\ChatWarden_Bot\\PeaceDaBoll.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dev\\Source\\Repos\\ChatWarden_Bot\\PeaceDaBoll.csproj",
+        "projectUniqueName": "C:\\Users\\dev\\source\\repos\\ChatWarden_Bot\\PeaceDaBoll.csproj",
         "projectName": "PeaceDaBoll",
-        "projectPath": "C:\\Users\\dev\\Source\\Repos\\ChatWarden_Bot\\PeaceDaBoll.csproj",
+        "projectPath": "C:\\Users\\dev\\source\\repos\\ChatWarden_Bot\\PeaceDaBoll.csproj",
         "packagesPath": "C:\\Users\\dev\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dev\\Source\\Repos\\ChatWarden_Bot\\obj\\",
+        "outputPath": "C:\\Users\\dev\\source\\repos\\ChatWarden_Bot\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\dev\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 using File = System.IO.File;
 
 namespace PeaceDaBoll.Profiles
@@ -48,7 +49,7 @@ namespace PeaceDaBoll.Profiles
         public static UserProfile Get(string Username)
         {
             string text = File.ReadAllText(path);
-            UserProfile profile = new UserProfile()
+            UserProfile profile = new()
             {
                 Username = Username,
                 CustomName = Regex.Match(text, @$"(?<={Username} CustomName: <)[A-Za-zА-Яа-я0-9]+(?=>)").Value,
@@ -57,7 +58,7 @@ namespace PeaceDaBoll.Profiles
                 FirstActivity = Regex.Match(text, @$"(?<={Username} FirstActivity: <)[0-9]+\.[0-9]+\.[0-9]{{4}} [0-9]+:[0-9]+:[0-9]+(?=>)").Value,
                 LastActivity = Regex.Match(text, @$"(?<={Username} LastActivity: <)[0-9]+\.[0-9]+\.[0-9]{{4}} [0-9]+:[0-9]+:[0-9]+(?=>)").Value, 
                 quantityUserWarnings = Convert.ToInt32(Regex.Match(text, @$"(?<={Username} quantityUserWarnings: <)[0-9]+(?=>)").Value),
-                quantityUserPoints = Convert.ToInt32(Regex.Match(text, @$"(?<={Username} quantityUserPoints: <)[0-9]+(?=>)").Value)
+                quantityUserPoints = Convert.ToInt32(Regex.Match(text, @$"(?<={Username} quantityUserPoints: <)[0-9\-]+(?=>)").Value)
             };
             return profile;
         }
@@ -70,7 +71,7 @@ namespace PeaceDaBoll.Profiles
         {
             Profiles = new Dictionary<string, UserProfile>();
             string text = File.ReadAllText(path);
-            foreach (Match item in Regex.Matches(text, @"(?<=@"")[A-Za-z0-9]+(?="")"))
+            foreach (Match item in Regex.Matches(text, @"(?<=@"")[A-Za-z0-9_]+(?="")"))
             {
                 string _Username = item.Value;
                 if (!Profiles.ContainsKey(_Username))
@@ -120,7 +121,6 @@ namespace PeaceDaBoll.Profiles
             }
             File.WriteAllText(path, text);
         }
-
         /// <summary>
         /// Проверяет, существует ли профиль в файле.
         /// </summary>

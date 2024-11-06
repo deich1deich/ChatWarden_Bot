@@ -45,9 +45,11 @@
             // 
             // Chat_TextBox
             // 
+            Chat_TextBox.BorderStyle = BorderStyle.FixedSingle;
             Chat_TextBox.Location = new Point(30, 25);
             Chat_TextBox.Multiline = true;
             Chat_TextBox.Name = "Chat_TextBox";
+            Chat_TextBox.ReadOnly = true;
             Chat_TextBox.ScrollBars = ScrollBars.Both;
             Chat_TextBox.Size = new Size(556, 425);
             Chat_TextBox.TabIndex = 0;
