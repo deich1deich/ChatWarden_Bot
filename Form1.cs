@@ -6,6 +6,7 @@ using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Message = Telegram.Bot.Types.Message;
+using File = System.IO.File;
 
 namespace PeaceDaBoll
 {
@@ -17,30 +18,8 @@ namespace PeaceDaBoll
         private static TelegramBotClient Bot;
         private CancellationTokenSource cts;
         private static bool isReceivingMessages = true;
-        private const string HELP_MESSAGE =
-        "Список команд для пользователей:\n" +
-        "1. /roll - Генерирует случайное число от 0 до значения которое вы указали.\n" +
-        "Пример: /roll 100 Вывод - 52\n" +
-        "2. /voteban - Начинает процесс голосования против участника чата.\n" +
-        "Пример: /voteban должен быть ответом на сообщение пользователя.\n" +
-        "Примечание: нельзя начинать по отношению к админам, за исключением случаев, когда голосование начинает создатель чата.\n" +
-        "3. /vote - Голосование за бан в текущий момент голосования.\n" +
-        "4. /profile - Показывает ваш профиль или профиль другого пользователя.\n" +
-        "Пример: /profile показывает ваш профиль. /profile [имя_пользователя] - показывает профиль другого пользователя.\n" +
-        "\r\n" +
-        "Список команд для админов:\n" +
-        "1. /editname - Изменяет второй ник пользователя в профиле.\n" +
-        "Пример: /editname [новый_ник] должен быть ответом сообщение пользователя чей ник нужно изменить\n" +
-        "2. /point - добавляет или отнимает кол-во очков на счету пользователя.\n" +
-        "Пример: /point [число] прибавляет введенное кол-во очков. /point [-число] отнимает введенное кол-во очков у пользователя, должно быть ответом на сообщение пользователя чьё кол-во очков нужно изменить.\n" +
-        "3. /warn - Добавляет или отнимает предупреждения у пользователя\n" +
-        "Пример: /warn [число] добавляет, /warn [-число] убавляет.\n" +
-        "4. /badword - Добавляет слово в черный список и после удаляется при появлении в чате.\n" +
-        "Пример: /badword [слово]\n" +
-        "5. /rank - прибавляет или отнимает введенное значение к рангу.\r\n" +
-        "Пример: /rank 1 прибавит к текущему рангу. /rank -1 отнимит от текущего ранга.\r\n" +
-        "\r\n" +
-        "Для поддержки в развитии проекта:\r\nСБЕР 4274 3200 5645 0680\r\nВсе полученные средства уйдут на развитие проекта.";
+        public static readonly string dataPath = Path.GetDirectoryName(Application.ExecutablePath) + @"\Data";
+        private readonly string textMessageHelp = File.ReadAllText(dataPath + @"\HelpMessage.txt");
 
         public Form1()
         {
@@ -137,7 +116,7 @@ namespace PeaceDaBoll
             catch (Exception ex)
             {
                 // Логирование ошибок
-                WriteLog($"{DateTime.Now} Error: {ex.Message}\nStackTrace: {ex.StackTrace}\nSource: {ex.Source}");
+                WriteLog($"Date: {DateTime.Now} Error: {ex.Message}\nStackTrace: {ex.StackTrace}\nSource: {ex.Source}");
             }
         }
 
@@ -160,7 +139,7 @@ namespace PeaceDaBoll
                     logMessage = $"({user}) отправил изображение";
                     break;
                 default:
-                    return; // Ignore other message types
+                    return;
             }
 
             WriteLog(logMessage);
@@ -270,7 +249,7 @@ namespace PeaceDaBoll
 
             if (messageText.StartsWith("/help"))
             {
-                await botClient.SendTextMessageAsync(MyChatId, HELP_MESSAGE);
+                await botClient.SendTextMessageAsync(MyChatId, textMessageHelp);
             }
             else if (messageText.StartsWith("/roll") && TryGetRollValue(messageText, out int rollValue))
             {

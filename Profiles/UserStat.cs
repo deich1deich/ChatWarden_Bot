@@ -18,7 +18,7 @@ namespace PeaceDaBoll.Profiles
         }
 
         /// <summary>
-        /// Поднятие ранга
+        /// Поднятие ранга пользователя
         /// </summary>
         /// <param name="name">Имя пользователя</param>
         public static void RankUp(string name)
@@ -27,11 +27,11 @@ namespace PeaceDaBoll.Profiles
             if (Required.Contains(user.quantityMessage))
             {
                 ChangeRank(name, Required.IndexOf(user.quantityMessage) + 1);
-            };
+            }
         }
 
         /// <summary>
-        /// Прибавление сообщений к общему количеству написанных сообщений пользователем
+        /// Прибавление к общей сумме написанных сообщений пользователем
         /// </summary>
         /// <param name="name">Имя пользователя</param>
         public static void ChangeMessageCount(string name) => Edit(name, ProfileValueType.quantityMessage, Convert.ToString(Get(name).quantityMessage + 1));

@@ -1,3 +1,5 @@
+using PeaceDaBoll.InitCheck;
+
 namespace PeaceDaBoll
 {
     internal static class Program
@@ -10,6 +12,7 @@ namespace PeaceDaBoll
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
+            InitializationCheck.CheckFileAndDir(Form1.dataPath);
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1());
         }

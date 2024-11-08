@@ -1,6 +1,7 @@
 ﻿using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using PeaceDaBoll.InitCheck;
 using File = System.IO.File;
 using Message = Telegram.Bot.Types.Message;
 
@@ -8,7 +9,7 @@ namespace PeaceDaBoll.Messages
 {
     public class Badwords
     {
-        private static readonly string BadWordsFilePath = Path.GetDirectoryName(Application.ExecutablePath) + @"\banwords.txt"; //Путь к файлу banwords
+        private static readonly string BadWordsFilePath = Form1.dataPath + @"\banwords.txt"; //Путь к файлу banwords
         private static readonly char[] separators = [' ', ',', '-', '.']; //Разделители слов
 
         public static Dictionary<int,DateTime> NotificationMessages = [];
@@ -81,7 +82,7 @@ namespace PeaceDaBoll.Messages
                     {
                         await Bot.DeleteMessageAsync(MyChatId, item.Key);
                         NotificationMessages.Remove(item.Key);
-                        await Bot.SendTextMessageAsync(MyChatId, $"Сообщение бота удалено в {DateTime.Now.ToString("HH:mm:ss")}");
+                        //await Bot.SendTextMessageAsync(MyChatId, $"Сообщение бота удалено в {DateTime.Now.ToString("HH:mm:ss")}");
                     }
                 }
             }

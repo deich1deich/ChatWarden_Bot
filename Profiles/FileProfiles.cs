@@ -6,7 +6,7 @@ namespace PeaceDaBoll.Profiles
 {
     internal class FileProfiles
     {
-        private static readonly string path = Path.GetDirectoryName(Application.ExecutablePath) + @"\Profiles.xyi";
+        private static readonly string path = Form1.dataPath + @"\Profiles.xyi";
 
         public static Dictionary<string, UserProfile> Profiles;
 
@@ -27,6 +27,7 @@ namespace PeaceDaBoll.Profiles
         /// <param name="name">Ник юзера без собаки.</param>
         public static void Add(UserProfile user, string name)
         {
+
             File.AppendAllText(
                 path,
                 $"@\"{name}\"" + Environment.NewLine +
